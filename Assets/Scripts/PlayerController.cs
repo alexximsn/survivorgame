@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     }  
 
     // Update is called once per frame  
-    void Update()  
-    {  
+   private void LateUpdate()
+   { 
         // Get input from keyboard  
         input.x = Input.GetAxisRaw("Horizontal");  
         input.y = Input.GetAxisRaw("Vertical");  
