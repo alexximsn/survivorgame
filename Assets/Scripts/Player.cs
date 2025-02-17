@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(PlayerHealth))]
 public class Player : MonoBehaviour
-{
-    // Start is called before the first frame update
+{ 
+    private PlayerHealth playerHealth;
+   private void Awake()
+   {
+    playerHealth=GetComponent<PlayerHealth>();
+   }
     void Start()
     {
         
@@ -14,5 +18,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+    }
+    public void TakeDamage(int damage)
+    {
+      playerHealth.TakeDamage(damage);
     }
 }

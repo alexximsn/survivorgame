@@ -68,8 +68,9 @@ public class Enemy : MonoBehaviour
     }
     private void Attack()
     {
-        Debug.Log("伤害" + damage);
+        
         attackTimer = 0;
+        player.TakeDamage(damage);
     }
     private void PassAway()
     {

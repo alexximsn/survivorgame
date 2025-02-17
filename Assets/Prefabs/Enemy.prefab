@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8282070982524403348}
   - component: {fileID: 8282070982524403346}
   - component: {fileID: 8282070982524403347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: die particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4822,7 +4822,7 @@ GameObject:
   - component: {fileID: 8282070982887912555}
   - component: {fileID: 8282070982887912553}
   - component: {fileID: 8282070982887912554}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spawn Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4918,7 +4918,8 @@ GameObject:
   - component: {fileID: 8282070983186894358}
   - component: {fileID: 4549033767586601958}
   - component: {fileID: 8282070983186894359}
-  m_Layer: 0
+  - component: {fileID: 5859651324618709688}
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4974,6 +4975,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+--- !u!58 &5859651324618709688
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282070983186894360}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0055402517, y: 0.16513729}
+  serializedVersion: 2
+  m_Radius: 0.18306911
 --- !u!1 &8282070983690000678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4985,7 +5002,7 @@ GameObject:
   - component: {fileID: 8282070983690000677}
   - component: {fileID: 8282070983690000675}
   - component: {fileID: 8282070983690000676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mushroom Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
