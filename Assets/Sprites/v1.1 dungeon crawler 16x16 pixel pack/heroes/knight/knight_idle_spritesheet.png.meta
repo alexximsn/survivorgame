@@ -36,7 +36,7 @@ TextureImporter:
       213: -4895815862888053056
     second: knight_idle_spritesheet_5
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -53,9 +53,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -65,11 +68,11 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -87,10 +90,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -102,6 +110,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -114,6 +123,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -135,7 +145,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: d9a7193398ebdb060800000000000000
-      internalID: 6970937294724364957
+      internalID: -9214166400764900579
       vertices: []
       indices: 
       edges: []
@@ -156,7 +166,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 80caafb97d067a5a0800000000000000
-      internalID: -6510128257189630968
+      internalID: -4301672474891968489
       vertices: []
       indices: 
       edges: []
@@ -177,7 +187,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5d681cca79372a9f0800000000000000
-      internalID: -458677116762749227
+      internalID: -5265694415744563965
       vertices: []
       indices: 
       edges: []
@@ -198,7 +208,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 60fa705d1ef6c4970800000000000000
-      internalID: 8740483992551665414
+      internalID: 1948212644320818234
       vertices: []
       indices: 
       edges: []
@@ -219,7 +229,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8c56a83bb17a11b60800000000000000
-      internalID: 7715131374080517576
+      internalID: 1841380003939878478
       vertices: []
       indices: 
       edges: []
@@ -255,9 +265,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      knight_idle_spritesheet_0: -9214166400764900579
+      knight_idle_spritesheet_1: -4301672474891968489
+      knight_idle_spritesheet_2: -5265694415744563965
+      knight_idle_spritesheet_3: 1948212644320818234
+      knight_idle_spritesheet_4: 1841380003939878478
+      knight_idle_spritesheet_5: -4895815862888053056
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour  
 {  
+    //刚体、走路速度、玩家输出的方向、鼠标在游戏中的位置
     private Rigidbody2D rig;  
     public float speed;  
     private Vector2 input;  
@@ -14,20 +15,17 @@ public class PlayerController : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();  
     }  
 
-    // Update is called once per frame  
    private void LateUpdate()
    { 
-        // Get input from keyboard  
         input.x = Input.GetAxisRaw("Horizontal");  
         input.y = Input.GetAxisRaw("Vertical");  
-
-        // Update velocity based on input  
+        //获得原始值
+      
         rig.velocity = input.normalized * speed;  
-
-        // Get mouse position in world space  
+        //设置速度
+      
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);  
-
-        // Rotate player based on mouse position  
+        //获取鼠标位置，如果鼠标在左，人物朝左；反之。
         if (mousePos.x > transform.position.x)  
         {  
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));  

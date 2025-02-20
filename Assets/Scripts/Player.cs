@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     private PlayerHealth playerHealth;
    private void Awake()
    {
-    playerHealth=GetComponent<PlayerHealth>();
+     playerHealth=GetComponent<PlayerHealth>();
    }
     void Start()
     {

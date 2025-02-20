@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 //using System.Diagnostics;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(EnemyMovement))]
 public class Enemy : MonoBehaviour
@@ -11,6 +13,7 @@ public class Enemy : MonoBehaviour
     private Player player;
     [SerializeField] private SpriteRenderer renderer;
     [SerializeField] private SpriteRenderer spawnIndicator;
+    [SerializeField] private Collider2D collider;
     private bool hasSpawned;
     [SerializeField] private float playerDetectionRadius;
     [SerializeField] bool gizmos;
@@ -20,8 +23,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackFrequency;
     private float attackDelay;
     private float attackTimer;
-    void Start()
+
+    [SerializeField] private int maxHealth;
+    private int health;
+    [SerializeField] private TextMeshPro healthText;
+
+    public static Action<int,Vector2> onDamageTaken;
+
+   void Start()
     {
+        health = maxHealth;
+        healthText.text = health.ToString();
+
         movement = GetComponent<EnemyMovement>();
 
         player = FindObjectOfType<Player>();
@@ -47,6 +60,7 @@ public class Enemy : MonoBehaviour
     {
         SetRenderersVisibility(true);
         hasSpawned = true;
+        collider.enabled = true;//敌人产生后再启动碰撞使得武器识别
         movement.StorePlayer(player);
     }
    
@@ -72,6 +86,16 @@ public class Enemy : MonoBehaviour
         attackTimer = 0;
         player.TakeDamage(damage);
     }
+    public void TakeDamage(int damage)
+    {
+        int realDamage = Mathf.Min(damage, health);
+        health -= realDamage;
+        healthText.text = health.ToString();
+        onDamageTaken?.Invoke(damage,transform.position);
+        if (health <= 0)
+            PassAway();
+
+    }
     private void PassAway()
     {
         dieParticles.transform.SetParent(null);
@@ -91,5 +115,7 @@ public class Enemy : MonoBehaviour
             return;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
+
+        //Gizmos.color = Color.White;
     }
 }
