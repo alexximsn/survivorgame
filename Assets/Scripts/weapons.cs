@@ -15,6 +15,7 @@ public class weapons : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private float aimLerp;
     [SerializeField] private Transform hitDetectionTransform;
+    [SerializeField] private BoxCollider2D hitCollider;
     [SerializeField] private float hitDetectionRadius;
     [SerializeField] private int damage;//武器伤害值
     [SerializeField] private Animator animator;
@@ -93,7 +94,9 @@ public class weapons : MonoBehaviour
 
     private void Attack()
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(hitDetectionTransform.position,hitDetectionRadius, enemyMask);
+        //Collider2D[] enemies = Physics2D.OverlapCircleAll(hitDetectionTransform.position,hitDetectionRadius, enemyMask);
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(hitDetectionTransform.position,
+          hitCollider.bounds.size,hitDetectionTransform.localEulerAngles.z,enemyMask);
         for (int i = 0; i < enemies.Length; i++)
         {
             Enemy enemy = enemies[i].GetComponent<Enemy>();

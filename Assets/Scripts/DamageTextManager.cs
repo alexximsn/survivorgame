@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 public class DamageTextManager : MonoBehaviour
 {
     [SerializeField] private DamageText damageTextPrefab;
-    private ObjectPool<DamageText> damageTextPool;
+    private ObjectPool<DamageText> damageTextPool;//用于管理伤害文本的创建和复用，减少内存分配和释放
     void Start()
     {
        damageTextPool=new ObjectPool<DamageText>(CreateFunction,ActionOnGet,ActionOnRelease,ActionOnDestroy); 
@@ -29,11 +29,11 @@ public class DamageTextManager : MonoBehaviour
     }
   
     private void EnemyHitcallback(int damage,Vector2 enemyPos)
-    {
-        DamageText damageTextInstance=damageTextPool.Get();
-        Vector3 spawnPosition=enemyPos+Vector2.up*1f;
+    {//显示伤害文本
+        DamageText damageTextInstance=damageTextPool.Get();//从池中获取伤害文本
+        Vector3 spawnPosition=enemyPos+Vector2.up*1f;//计算显示位置（在敌人上方1单位）
         damageTextInstance.transform.position=spawnPosition;
-        damageTextInstance.Animate(damage);
+        damageTextInstance.Animate(damage);//调用动画
         LeanTween.delayedCall(1,()=>damageTextPool.Release(damageTextInstance));
     }
     private void Awake()
@@ -42,6 +42,6 @@ public class DamageTextManager : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Enemy.onDamageTaken-=EnemyHitcallback;
+        Enemy.onDamageTaken-=EnemyHitcallback;//从 Enemy 的 onDamageTaken 事件中移除回调，以避免内存泄漏和访问已销毁对象的问题。
     }
 }

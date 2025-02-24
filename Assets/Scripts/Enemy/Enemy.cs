@@ -26,18 +26,15 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private int maxHealth;
     private int health;
-    [SerializeField] private TextMeshPro healthText;
+
 
     public static Action<int,Vector2> onDamageTaken;
 
    void Start()
     {
-        health = maxHealth;
-        healthText.text = health.ToString();
-
+        health = maxHealth;//开始生命值最高
         movement = GetComponent<EnemyMovement>();
-
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<Player>();//找到玩家和敌人
 
         if (player == null)
         {
@@ -48,37 +45,40 @@ public class Enemy : MonoBehaviour
         attackDelay = 1f / attackFrequency;
 
     }
-    private void StartSpawnSequence()
+    private void StartSpawnSequence()//生成敌人生成器
     {
         SetRenderersVisibility(false); 
-        Vector3 targetScale = spawnIndicator.transform.localScale * 1.3f;
+        Vector3 targetScale = spawnIndicator.transform.localScale * 1.3f;//指定缩放的大小
         LeanTween.scale(spawnIndicator.gameObject, targetScale, .3f).
-            setLoopPingPong(4).setOnComplete(SpawnSequenceCompleted);
+            setLoopPingPong(4).setOnComplete(SpawnSequenceCompleted);//使用LeanTewwn库对生成器进行缩放
 
     }
     private void SpawnSequenceCompleted()
     {
-        SetRenderersVisibility(true);
+        SetRenderersVisibility(true);//敌人出现
         hasSpawned = true;
         collider.enabled = true;//敌人产生后再启动碰撞使得武器识别
         movement.StorePlayer(player);
     }
    
-    private void SetRenderersVisibility(bool visibility)
+    private void SetRenderersVisibility(bool visibility)//生成器出现，敌人出现；反之
     {
         renderer.enabled = visibility;
         spawnIndicator.enabled = !visibility;
     }
     void Update()
     {
-        if (attackTimer >= attackDelay)
+        if (!renderer.enabled)
+            return;
+        if (attackTimer >= attackDelay)//检测计时器是否达到攻击延迟
             TryAttack();
         else
             Wait();
+        movement.FollowPlayer();
     }
     private void Wait()
     {
-        attackTimer += Time.deltaTime;
+        attackTimer += Time.deltaTime;//达到攻击延迟
     }
     private void Attack()
     {
@@ -88,10 +88,10 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
-        int realDamage = Mathf.Min(damage, health);
+        int realDamage = Mathf.Min(damage, health);//确保不超过当前生命值
         health -= realDamage;
-        healthText.text = health.ToString();
-        onDamageTaken?.Invoke(damage,transform.position);
+      
+        onDamageTaken?.Invoke(damage,transform.position);//触发伤害事件，传递伤害值和位置
         if (health <= 0)
             PassAway();
 
@@ -99,21 +99,23 @@ public class Enemy : MonoBehaviour
     private void PassAway()
     {
         dieParticles.transform.SetParent(null);
-        dieParticles.Play();
-        Destroy(gameObject);
+        dieParticles.Play();//播放粒子效果
+        Destroy(gameObject);//摧毁敌人
     }
     private void TryAttack()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);//计算二者距离
         if (distanceToPlayer <= playerDetectionRadius)
-            Attack();
-        //PassAway();
+            Attack();//小于检测半径，攻击
+        else
+            movement.FollowPlayer();
+        
     }
     private void OnDrawGizmos()
     {
         if (!gizmos)
             return;
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.red;//绘制检测半径
         Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
 
         //Gizmos.color = Color.White;
