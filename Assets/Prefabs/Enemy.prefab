@@ -5188,9 +5188,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8282070983186894358}
-  - component: {fileID: 4549033767586601958}
   - component: {fileID: 8282070983186894359}
   - component: {fileID: 5859651324618709688}
+  - component: {fileID: 8788751886100202498}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -5217,28 +5217,6 @@ Transform:
   - {fileID: 5755784618599751353}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4549033767586601958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8282070983186894360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5e42700d1e1c5c4d8f42fe550d12341, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderer: {fileID: 8282070983690000675}
-  spawnIndicator: {fileID: 8282070982887912553}
-  collider: {fileID: 5859651324618709688}
-  playerDetectionRadius: 0.5
-  gizmos: 1
-  dieParticles: {fileID: 8282070982524403346}
-  damage: 1
-  attackFrequency: 1
-  maxHealth: 10
-  healthText: {fileID: 2915156788447181037}
 --- !u!114 &8282070983186894359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5287,6 +5265,27 @@ CircleCollider2D:
   m_Offset: {x: -0.0055402517, y: 0.16513729}
   serializedVersion: 2
   m_Radius: 0.18306911
+--- !u!114 &8788751886100202498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282070983186894360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a1f507f2ea3204e8df605717845c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  renderer: {fileID: 8282070983690000675}
+  spawnIndicator: {fileID: 8282070982887912553}
+  collider: {fileID: 5859651324618709688}
+  playerDetectionRadius: 0.3
+  dieParticles: {fileID: 8282070982524403346}
+  gizmos: 1
+  damage: 1
+  attackFrequency: 1
 --- !u!1 &8282070983690000678
 GameObject:
   m_ObjectHideFlags: 0

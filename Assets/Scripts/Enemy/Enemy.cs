@@ -1,97 +1,71 @@
-ï»¿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Diagnostics;
 using UnityEngine;
-using TMPro;
 
-[RequireComponent(typeof(EnemyMovement))]
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
-    private EnemyMovement movement;
+    protected EnemyMovement movement;
+    [SerializeField] protected int maxHealth;
+    protected int health;
 
-    private Player player;
-    [SerializeField] private SpriteRenderer renderer;
-    [SerializeField] private SpriteRenderer spawnIndicator;
-    [SerializeField] private Collider2D collider;
-    private bool hasSpawned;
-    [SerializeField] private float playerDetectionRadius;
-    [SerializeField] bool gizmos;
+    protected Player player;
+    [SerializeField] protected SpriteRenderer renderer;
+    [SerializeField] protected SpriteRenderer spawnIndicator;
+    [SerializeField] protected Collider2D collider;
+    protected bool hasSpawned;
 
-    [SerializeField] private ParticleSystem dieParticles;
-    [SerializeField] private int damage;
-    [SerializeField] private float attackFrequency;
-    private float attackDelay;
-    private float attackTimer;
+    [SerializeField] protected float playerDetectionRadius;
 
-    [SerializeField] private int maxHealth;
-    private int health;
+    [SerializeField] protected ParticleSystem dieParticles;
 
-
-    public static Action<int,Vector2> onDamageTaken;
-
-   void Start()
+    [SerializeField] protected bool gizmos;
+    public static Action<int, Vector2> onDamageTaken;
+    protected virtual void Start()
     {
-        health = maxHealth;//å¼€å§‹ç”Ÿå‘½å€¼æœ€é«˜
+        health = maxHealth;//¿ªÊ¼ÉúÃüÖµ×î¸ß
         movement = GetComponent<EnemyMovement>();
-        player = FindObjectOfType<Player>();//æ‰¾åˆ°ç©å®¶å’Œæ•Œäºº
-
+        player = FindObjectOfType<Player>();//ÕÒµ½Íæ¼ÒºÍµĞÈË
         if (player == null)
         {
-          
+
             Destroy(gameObject);
         }
         StartSpawnSequence();
-        attackDelay = 1f / attackFrequency;
-
     }
-    private void StartSpawnSequence()//ç”Ÿæˆæ•Œäººç”Ÿæˆå™¨
+    private void StartSpawnSequence()//Éú³ÉµĞÈËÉú³ÉÆ÷
     {
-        SetRenderersVisibility(false); 
-        Vector3 targetScale = spawnIndicator.transform.localScale * 1.3f;//æŒ‡å®šç¼©æ”¾çš„å¤§å°
+        SetRenderersVisibility(false);
+        Vector3 targetScale = spawnIndicator.transform.localScale * 1.3f;//Ö¸¶¨Ëõ·ÅµÄ´óĞ¡
         LeanTween.scale(spawnIndicator.gameObject, targetScale, .3f).
-            setLoopPingPong(4).setOnComplete(SpawnSequenceCompleted);//ä½¿ç”¨LeanTewwnåº“å¯¹ç”Ÿæˆå™¨è¿›è¡Œç¼©æ”¾
+            setLoopPingPong(4).setOnComplete(SpawnSequenceCompleted);//Ê¹ÓÃLeanTewwn¿â¶ÔÉú³ÉÆ÷½øĞĞËõ·Å
 
     }
     private void SpawnSequenceCompleted()
     {
-        SetRenderersVisibility(true);//æ•Œäººå‡ºç°
+        SetRenderersVisibility(true);//µĞÈË³öÏÖ
         hasSpawned = true;
-        collider.enabled = true;//æ•Œäººäº§ç”Ÿåå†å¯åŠ¨ç¢°æ’ä½¿å¾—æ­¦å™¨è¯†åˆ«
+        collider.enabled = true;//µĞÈË²úÉúºóÔÙÆô¶¯Åö×²Ê¹µÃÎäÆ÷Ê¶±ğ
         movement.StorePlayer(player);
     }
-   
-    private void SetRenderersVisibility(bool visibility)//ç”Ÿæˆå™¨å‡ºç°ï¼Œæ•Œäººå‡ºç°ï¼›åä¹‹
+
+    private void SetRenderersVisibility(bool visibility)//Éú³ÉÆ÷³öÏÖ£¬µĞÈË³öÏÖ£»·´Ö®
     {
         renderer.enabled = visibility;
         spawnIndicator.enabled = !visibility;
     }
-    void Update()
+    protected bool CanAttack()
     {
-        if (!renderer.enabled)
-            return;
-        if (attackTimer >= attackDelay)//æ£€æµ‹è®¡æ—¶å™¨æ˜¯å¦è¾¾åˆ°æ”»å‡»å»¶è¿Ÿ
-            TryAttack();
-        else
-            Wait();
-        movement.FollowPlayer();
-    }
-    private void Wait()
-    {
-        attackTimer += Time.deltaTime;//è¾¾åˆ°æ”»å‡»å»¶è¿Ÿ
-    }
-    private void Attack()
-    {
-        
-        attackTimer = 0;
-        player.TakeDamage(damage);
+
+
+        return renderer.enabled;
     }
     public void TakeDamage(int damage)
     {
-        int realDamage = Mathf.Min(damage, health);//ç¡®ä¿ä¸è¶…è¿‡å½“å‰ç”Ÿå‘½å€¼
+        int realDamage = Mathf.Min(damage, health);//È·±£²»³¬¹ıµ±Ç°ÉúÃüÖµ
         health -= realDamage;
-      
-        onDamageTaken?.Invoke(damage,transform.position);//è§¦å‘ä¼¤å®³äº‹ä»¶ï¼Œä¼ é€’ä¼¤å®³å€¼å’Œä½ç½®
+
+        onDamageTaken?.Invoke(damage, transform.position);//´¥·¢ÉËº¦ÊÂ¼ş£¬´«µİÉËº¦ÖµºÍÎ»ÖÃ
         if (health <= 0)
             PassAway();
 
@@ -99,23 +73,14 @@ public class Enemy : MonoBehaviour
     private void PassAway()
     {
         dieParticles.transform.SetParent(null);
-        dieParticles.Play();//æ’­æ”¾ç²’å­æ•ˆæœ
-        Destroy(gameObject);//æ‘§æ¯æ•Œäºº
-    }
-    private void TryAttack()
-    {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);//è®¡ç®—äºŒè€…è·ç¦»
-        if (distanceToPlayer <= playerDetectionRadius)
-            Attack();//å°äºæ£€æµ‹åŠå¾„ï¼Œæ”»å‡»
-        else
-            movement.FollowPlayer();
-        
+        dieParticles.Play();//²¥·ÅÁ£×ÓĞ§¹û
+        Destroy(gameObject);//´İ»ÙµĞÈË
     }
     private void OnDrawGizmos()
     {
         if (!gizmos)
             return;
-        Gizmos.color = Color.red;//ç»˜åˆ¶æ£€æµ‹åŠå¾„
+        Gizmos.color = Color.red;//»æÖÆ¼ì²â°ë¾¶
         Gizmos.DrawWireSphere(transform.position, playerDetectionRadius);
 
         //Gizmos.color = Color.White;

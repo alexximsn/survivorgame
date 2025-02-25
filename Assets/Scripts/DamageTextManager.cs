@@ -38,10 +38,10 @@ public class DamageTextManager : MonoBehaviour
     }
     private void Awake()
     {
-        Enemy.onDamageTaken+=EnemyHitcallback;
+        Meleeenemy.onDamageTaken+=EnemyHitcallback;
     }
     private void OnDestroy()
     {
-        Enemy.onDamageTaken-=EnemyHitcallback;//从 Enemy 的 onDamageTaken 事件中移除回调，以避免内存泄漏和访问已销毁对象的问题。
+        Meleeenemy.onDamageTaken-=EnemyHitcallback;//从 Enemy 的 onDamageTaken 事件中移除回调，以避免内存泄漏和访问已销毁对象的问题。
     }
 }
