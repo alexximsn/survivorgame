@@ -15,19 +15,7 @@ public abstract class weapons : MonoBehaviour
   
     [SerializeField] protected float attackDelay;
     protected float attackTimer;
-    void Start()
-    {
-      
-    }
-   void Update()  
-{  
-      
-   
-}  
-
-   
-
-   
+  
     protected Enemy GetClosestEnemy()
     {
      Enemy closestEnemy = null; 
@@ -50,10 +38,24 @@ public abstract class weapons : MonoBehaviour
        
     }  
 
+    protected int GetDamage(out bool isCritialHit)
+    {
+        isCritialHit = false;
+        if(Random.Range(0,101)<=50)//现在设置成50%
+        {
+            isCritialHit = true;
+            return damage * 2;
+
+        }
+        return damage;//是否是暴击
+
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color=Color.magenta;
         Gizmos.DrawWireSphere(transform.position,range);
        
     }
+
 }
