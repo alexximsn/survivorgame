@@ -28,12 +28,12 @@ public class DamageTextManager : MonoBehaviour
        Destroy(damageText.gameObject);
     }
   
-    private void EnemyHitcallback(int damage,Vector2 enemyPos)
+    private void EnemyHitcallback(int damage,Vector2 enemyPos, bool isCriticalHit)
     {//显示伤害文本
         DamageText damageTextInstance=damageTextPool.Get();//从池中获取伤害文本
         Vector3 spawnPosition=enemyPos+Vector2.up*1f;//计算显示位置（在敌人上方1单位）
         damageTextInstance.transform.position=spawnPosition;
-        damageTextInstance.Animate(damage);//调用动画
+        damageTextInstance.Animate(damage,isCriticalHit);//调用动画
         LeanTween.delayedCall(1,()=>damageTextPool.Release(damageTextInstance));
     }
     private void Awake()

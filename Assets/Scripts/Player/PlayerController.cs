@@ -6,21 +6,22 @@ public class PlayerController : MonoBehaviour
 {  
     //刚体、走路速度、玩家输出的方向、鼠标在游戏中的位置
     private Rigidbody2D rig;  
-    public float speed;  
+    [SerializeField] private float speed;  
     private Vector2 input;  
-    private Vector2 mousePos;  
-
+    private Vector2 mousePos;
+    
     void Start()  
     {  
-        rig = GetComponent<Rigidbody2D>();  
+        rig = GetComponent<Rigidbody2D>();
+        
     }  
 
    private void LateUpdate()
    { 
         input.x = Input.GetAxisRaw("Horizontal");  
-        input.y = Input.GetAxisRaw("Vertical");  
+        
+        input.y = Input.GetAxisRaw("Vertical");
         //获得原始值
-      
         rig.velocity = input.normalized * speed;  
         //设置速度
       

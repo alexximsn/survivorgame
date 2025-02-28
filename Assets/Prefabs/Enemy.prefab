@@ -5297,6 +5297,7 @@ GameObject:
   - component: {fileID: 8282070983690000677}
   - component: {fileID: 8282070983690000675}
   - component: {fileID: 8282070983690000676}
+  - component: {fileID: 5728942595607858135}
   m_Layer: 8
   m_Name: Mushroom Renderer
   m_TagString: Untagged
@@ -5385,3 +5386,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8282070983690000675}
+--- !u!95 &5728942595607858135
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282070983690000678}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7d2afa7cd4ece664fb5c85ba9f6daf55, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

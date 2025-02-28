@@ -86,6 +86,6 @@ public class Gunweapon : weapons
         int damage = GetDamage(out bool isCriticalHit);
         direction = (mousePos - new Vector2(transform.position.x, transform.position.y)).normalized;
         Bullet bulletInstance = bulletPool.Get();
-        bulletInstance.Shoot(damage, direction);
+        bulletInstance.Shoot(damage, direction,isCriticalHit);
     }
 }

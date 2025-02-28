@@ -20,7 +20,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected ParticleSystem dieParticles;
 
     [SerializeField] protected bool gizmos;
-    public static Action<int, Vector2> onDamageTaken;
+    public static Action<int, Vector2,bool> onDamageTaken;
+    public static Action<Vector2> onPassedAway;
     protected virtual void Start()
     {
         health = maxHealth;//开始生命值最高
@@ -56,22 +57,21 @@ public abstract class Enemy : MonoBehaviour
     }
     protected bool CanAttack()
     {
-
-
         return renderer.enabled;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage,bool isCriticalHit)
     {
         int realDamage = Mathf.Min(damage, health);//确保不超过当前生命值
         health -= realDamage;
 
-        onDamageTaken?.Invoke(damage, transform.position);//触发伤害事件，传递伤害值和位置
+        onDamageTaken?.Invoke(damage, transform.position,isCriticalHit);//触发伤害事件，传递伤害值和位置
         if (health <= 0)
             PassAway();
 
     }
     private void PassAway()
     {
+        onPassedAway?.Invoke(transform.position);
         dieParticles.transform.SetParent(null);
         dieParticles.Play();//播放粒子效果
         Destroy(gameObject);//摧毁敌人

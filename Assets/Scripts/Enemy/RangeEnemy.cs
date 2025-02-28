@@ -15,7 +15,6 @@ public class RangeEnemy : Enemy
     {
         base.Start();
         attack = GetComponent<RangeEnemyAttack>();
-       
         attack.StorePlayer(player);
 
     }
