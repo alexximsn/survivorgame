@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Drops : MonoBehaviour
+using System;
+public class Drops : DroppableCurrency
 {
-    
-    void Start()
+    public static Action<Drops> onCollected;
+    protected override void Collected()
     {
-        
+        onCollected?.Invoke(this);
+           
     }
 
    
-    void Update()
-    {
-        
-    }
+   
 }

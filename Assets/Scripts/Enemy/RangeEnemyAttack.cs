@@ -15,6 +15,11 @@ public class RangeEnemyAttack : MonoBehaviour
     private float attackTimer;
 
     private ObjectPool<TreeEnemyBullet> bulletPool;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private EnemyMovement movement;
+    private bool isAttacking;
+    private Coroutine attackRoutine;
     void Start()
     {
         attackDelay = 1f / attackFrequency;
@@ -56,18 +61,58 @@ public class RangeEnemyAttack : MonoBehaviour
     {     
     }
     public void AutoAim()
-    { 
-        ManageShooting();
-    }
-    private void  ManageShooting()
     {
-        attackTimer += Time.deltaTime;
-        if(attackTimer>=attackDelay)
+        // ManageShooting();
+        if (!isAttacking)
         {
-            attackTimer = 0;
-            Shoot();
+            attackRoutine = StartCoroutine(AttackSequence());
         }
+    }
+    private IEnumerator AttackSequence()
+    {
+        isAttacking = true;
 
+        // 阶段 1: 锁定移动并播放动画
+        movement.SetMovementEnabled(false);
+        animator.SetTrigger("Attack");
+
+        // 阶段 2: 等待动画预备时间
+        yield return new WaitForSeconds(0.3f); // 与动画抬手动作同步
+
+        // 阶段 3: 执行射击
+        Shoot();
+
+        // 阶段 4: 等待攻击冷却
+        yield return new WaitForSeconds(1f / attackFrequency);
+
+        // 阶段 5: 恢复状态
+        movement.SetMovementEnabled(true);
+        isAttacking = false;
+    }
+    //private void  ManageShooting()
+    //{
+    //    attackTimer += Time.deltaTime;
+    //    if(attackTimer>=attackDelay)
+    //    {
+    //        attackTimer = 0;
+    //        Shoot();
+    //    }
+
+    //}
+    public void OnShootEvent()
+    {
+        Shoot(); // 精确同步射击时机
+    }
+
+    public void OnAttackEnd()
+    {
+        // 安全恢复（防止协程冲突）
+        if (isAttacking)
+        {
+            movement.SetMovementEnabled(true);
+            StopCoroutine(attackRoutine);
+            isAttacking = false;
+        }
     }
     private void Shoot()
     {

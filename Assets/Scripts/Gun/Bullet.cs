@@ -7,12 +7,15 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rig;
     private Collider2D collider;
+    public GameObject explosionPrefab;
     [SerializeField] private float moveSpeed;
     [SerializeField] private LayerMask enemyMask;
     private int damage;
     private bool isCriticalHit;
     private Gunweapon gunWeapon;
     private Enemy target;//确保只攻击一个敌人
+
+
     private void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -46,6 +49,8 @@ public class Bullet : MonoBehaviour
             return;
         if(IsInLayerMask(collider.gameObject.layer,enemyMask))
         {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            
             target = collider.GetComponent<Enemy>();
             CancelInvoke();
             Attack(target);

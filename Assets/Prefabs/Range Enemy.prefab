@@ -5119,9 +5119,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootingPoint: {fileID: 3772872087159297127}
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: -4110668111598884791, guid: 1d349c4d2b6804746a8188d6c8733356,
+    type: 3}
   damage: 1
-  attackFrequency: 1
+  attackFrequency: 3
+  animator: {fileID: 4470252134004228006}
+  movement: {fileID: 4020909201333254720}
 --- !u!1 &4552124717631257815
 GameObject:
   m_ObjectHideFlags: 0
@@ -5344,7 +5347,7 @@ GameObject:
   - component: {fileID: 1426422275313666472}
   - component: {fileID: 3870737074668474822}
   - component: {fileID: 5500511137261807191}
-  - component: {fileID: 7948551024423658289}
+  - component: {fileID: 4470252134004228006}
   m_Layer: 8
   m_Name: Tree Renderer
   m_TagString: Untagged
@@ -5433,7 +5436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3870737074668474822}
---- !u!95 &7948551024423658289
+--- !u!95 &4470252134004228006
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0

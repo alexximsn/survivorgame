@@ -12,6 +12,7 @@ public class Gunweapon : weapons
     private float flipY;
     private ObjectPool<Bullet> bulletPool;
     private float rotationSpeed = 10f; // 控制旋转速度  
+   
 
     void Start()
     {
@@ -74,7 +75,9 @@ public class Gunweapon : weapons
     private void ManageShooting()
     {
         attackTimer += Time.deltaTime;
-        if (attackTimer >= attackDelay)
+
+        // 检测鼠标左键按下，并且攻击计时器达到攻击延迟  
+        if (Input.GetMouseButton(0) && attackTimer >= attackDelay)
         {
             attackTimer = 0;
             Shoot();
@@ -87,5 +90,6 @@ public class Gunweapon : weapons
         direction = (mousePos - new Vector2(transform.position.x, transform.position.y)).normalized;
         Bullet bulletInstance = bulletPool.Get();
         bulletInstance.Shoot(damage, direction,isCriticalHit);
+      //  Instantiate(shellPrefab, shellPos.position, shellPos.rotation);
     }
 }

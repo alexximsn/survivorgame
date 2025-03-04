@@ -7,17 +7,16 @@ using System;
 [RequireComponent(typeof(EnemyMovement),typeof(RangeEnemyAttack))]
 public class RangeEnemy : Enemy
 {
+
    
     private RangeEnemyAttack attack;
-   
-   
     protected override void Start()
     {
         base.Start();
         attack = GetComponent<RangeEnemyAttack>();
         attack.StorePlayer(player);
-
     }
+
    
      void Update()
     {
@@ -25,7 +24,6 @@ public class RangeEnemy : Enemy
             return;
         ManageAttack();
         transform.localScale = player.transform.position.x > transform.position.x ? new Vector3(-2, 2, 2) : new Vector3(2, 2, 2);
-
     }
     private void ManageAttack()
     {
@@ -35,10 +33,8 @@ public class RangeEnemy : Enemy
         else
             TryAttack();
     }
-    
     private void TryAttack()
     {
         attack.AutoAim();
     }
-
 }
