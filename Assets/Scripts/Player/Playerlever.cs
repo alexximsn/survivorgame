@@ -8,9 +8,11 @@ public class Playerlever : MonoBehaviour
     private int requiredXp;
     private int currentXp;
     private int level;
+    private int levelEarnedThisWave;
     [SerializeField] private Slider xpBar;
     [SerializeField] private TextMeshProUGUI levelText;
-
+    [SerializeField]
+    private bool DEBUG;
     private void Awake()
     {
         Drops.onCollected += DropsCollectedCallback;
@@ -45,8 +47,20 @@ public class Playerlever : MonoBehaviour
     private void LevelUp()
     {
         level++;
+        levelEarnedThisWave++;
         currentXp = 0;
         UpdateRequiredXp();
+    }
+    public bool HasLeveledUp()
+    {
+        if(DEBUG)
+        return true;
+        if (levelEarnedThisWave>0)
+        {
+            levelEarnedThisWave--;
+            return true;
+        }
+        return false;
     }
 
 }

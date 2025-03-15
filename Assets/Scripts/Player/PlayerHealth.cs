@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
+
 public class PlayerHealth : MonoBehaviour
 {
     //设置最大生命值、当前生命值、生命值条、显示文字
@@ -30,8 +30,7 @@ public class PlayerHealth : MonoBehaviour
     }
     private void PassAway()
     {
-      Debug.Log("Die");
-      SceneManager.LoadScene(0);
+        GameManager.instance.SetGameState(GameState.GAMEOVER);
     }
     //1.计算当前生命值占最大生命值的比例2.更新生命条3.更新文本
     private void UpdateUI()

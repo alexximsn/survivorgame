@@ -12,7 +12,6 @@ public abstract  class DroppableCurrency : MonoBehaviour,ICollectable
 
     void Start()
     {
-
     }
 
 
@@ -43,8 +42,5 @@ public abstract  class DroppableCurrency : MonoBehaviour,ICollectable
 
     }
     protected abstract void Collected();
-    
-        
-    
-
+  
 }
