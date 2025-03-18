@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;  
@@ -33,15 +34,28 @@ public class DamageTextManager : MonoBehaviour
         DamageText damageTextInstance=damageTextPool.Get();//从池中获取伤害文本
         Vector3 spawnPosition=enemyPos+Vector2.up*1f;//计算显示位置（在敌人上方1单位）
         damageTextInstance.transform.position=spawnPosition;
-        damageTextInstance.Animate(damage,isCriticalHit);//调用动画
+        damageTextInstance.Animate(damage.ToString(),isCriticalHit);//调用动画
         LeanTween.delayedCall(1,()=>damageTextPool.Release(damageTextInstance));
     }
     private void Awake()
     {
         Enemy.onDamageTaken+=EnemyHitcallback;
+        PlayerHealth.onAttackDodged += AttackDodgedCallback;
     }
+
+   
     private void OnDestroy()
     {
         Enemy.onDamageTaken-=EnemyHitcallback;//从 Enemy 的 onDamageTaken 事件中移除回调，以避免内存泄漏和访问已销毁对象的问题。
+        PlayerHealth.onAttackDodged -= AttackDodgedCallback;
     }
+    private void AttackDodgedCallback(Vector2 playerPosition)
+    {
+        DamageText damageTextInstance = damageTextPool.Get();//从池中获取伤害文本
+        Vector3 spawnPosition = playerPosition + Vector2.up * 1f;//计算显示位置（在敌人上方1单位）
+        damageTextInstance.transform.position = spawnPosition;
+        damageTextInstance.Animate("Miss",false);//调用动画
+        LeanTween.delayedCall(1, () => damageTextPool.Release(damageTextInstance));
+    }
+
 }
