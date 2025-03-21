@@ -79,4 +79,9 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
         if(WeaponData.Prefab.GetType()==typeof(Gunweapon))
         range = WeaponData.GetStatValue(Stat.Range) * multiplier;
     }
+
+    internal void Update()
+    {
+        throw new System.NotImplementedException();
+    }
 }

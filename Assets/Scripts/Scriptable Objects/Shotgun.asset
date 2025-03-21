@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb6472b3457bafe45bc520976e40f73b, type: 3}
-  m_Name: start gun
+  m_Name: Shotgun
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: doudou
-  <Sprite>k__BackingField: {fileID: 3632833148999712676, guid: 45af50753e4a1ea40946a9eceeb76e6c,
+  <Name>k__BackingField: shot gun
+  <Sprite>k__BackingField: {fileID: -2413220436549406992, guid: 45af50753e4a1ea40946a9eceeb76e6c,
     type: 3}
   <PurchasePrice>k__BackingField: 100
-  <Prefab>k__BackingField: {fileID: 6707153448170330490, guid: 1f98fef6c3506674d81c3b25aca07ecf,
+  <Prefab>k__BackingField: {fileID: 2236347218920972335, guid: 7789316dc08e20e46806fc922b2ca018,
     type: 3}
-  attack: 10
-  attackSpeed: 2
-  critialChance: 5
-  critialPercent: 1.5
-  range: 4
+  attack: 5
+  attackSpeed: 1
+  critialChance: 0
+  critialPercent: 0
+  range: 2
+  num: 3

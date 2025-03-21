@@ -22,7 +22,8 @@ public enum Stat
     Armor,
     Lucky,
     Dodge,
-    LifeSteal
+    LifeSteal,
+        SpreadCount//É¢µ¯ÊýÁ¿
 }
 public static class Enums
 {

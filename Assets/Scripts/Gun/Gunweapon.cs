@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.Pool;
+using UnityEngine.Windows;
+using Input = UnityEngine.Input;
 public class Gunweapon : weapons
 {
     [SerializeField] private Transform shootingPoint;
@@ -12,10 +15,11 @@ public class Gunweapon : weapons
     private float flipY;
     private ObjectPool<Bullet> bulletPool;
     private float rotationSpeed = 10f; // 控制旋转速度  
-   
+    private enum gunState { idle, SHOOT };
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         flipY = transform.localScale.y;
         bulletPool = new ObjectPool<Bullet>(CreateFunction, ActionOnGet, ActionOnRelease, ActionOnDestroy);
     }
@@ -31,10 +35,23 @@ public class Gunweapon : weapons
         {
             transform.localScale = new Vector3(flipY, flipY, 1);
         }
+        GunAnim();
         ManageShooting();
         SmoothRotateTowardsMouse();
     }
-
+    void GunAnim()
+    {
+        gunState states;
+        if (Input.GetMouseButton(0) && attackTimer >= attackDelay)
+        {
+            states = gunState.SHOOT;
+        }
+        else
+        {
+            states = gunState.idle;
+        }
+        animator.SetInteger("equal", (int)states);
+    }
     private void SmoothRotateTowardsMouse()
     {
         direction = (mousePos - new Vector2(transform.position.x, transform.position.y)).normalized;
@@ -77,7 +94,7 @@ public class Gunweapon : weapons
         attackTimer += Time.deltaTime;
 
         // 检测鼠标左键按下，并且攻击计时器达到攻击延迟  
-        if (Input.GetMouseButton(0) && attackTimer >= attackDelay)
+        if (UnityEngine.Input.GetMouseButton(0) && attackTimer >= attackDelay)
         {
             attackTimer = 0;
             Shoot();
