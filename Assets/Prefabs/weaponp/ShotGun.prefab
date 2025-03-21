@@ -129,7 +129,7 @@ MonoBehaviour:
     m_Bits: 256
   aimLerp: 6
   <Level>k__BackingField: 0
-  damage: 1
+  damage: 10
   animator: {fileID: 1749151060710222927}
   attackDelay: 1
   muzzlePos: {fileID: 5732492395114401904}
@@ -138,7 +138,6 @@ MonoBehaviour:
   baseBulletNum: 3
   baseSpreadAngle: 15
   rotationSpeed: 15
-  flipY: 0
 --- !u!1 &4829253211470478094
 GameObject:
   m_ObjectHideFlags: 0

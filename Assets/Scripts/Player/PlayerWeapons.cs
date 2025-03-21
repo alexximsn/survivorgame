@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWeapons : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private WeaponPosition[] weaponPositions;
     void Start()
     {
         
@@ -17,6 +17,7 @@ public class PlayerWeapons : MonoBehaviour
     }
     public void AddWeapon(WeaponDataSO selectedWeapon,int weaponLevel)
     {
-        Debug.Log("选择了" + selectedWeapon.Name+"等级："+weaponLevel);
+        // Debug.Log("选择了" + selectedWeapon.Name+"等级："+weaponLevel);
+        weaponPositions[Random.Range(0, weaponPositions.Length)].AssignWeapon(selectedWeapon.Prefab,weaponLevel);
     }
 }

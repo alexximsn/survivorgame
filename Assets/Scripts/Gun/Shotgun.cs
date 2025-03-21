@@ -9,12 +9,12 @@ public class Shotgun : weapons
     [Header("Shotgun Settings")]
     [SerializeField] private Transform muzzlePos;
     [SerializeField] private Bullet bulletPrefab;
-    [SerializeField] private int baseBulletNum = 5;
-    [SerializeField] private float baseSpreadAngle = 15f;
-    [SerializeField] private float rotationSpeed = 15f; // 新增旋转速度
-    [SerializeField] private float flipY;              // 新增翻转控制
+    [SerializeField] private int baseBulletNum ;
+    [SerializeField] private float baseSpreadAngle;
+    [SerializeField] private float rotationSpeed = 10f; // 新增旋转速度
+     private float flipY;              // 新增翻转控制
 
-   // [SerializeField] private Animator animator; // 需要手动拖拽分配
+   
     private enum ShotgunState { Idle, Shoot }
 
     private ObjectPool<Bullet> bulletPool;
@@ -46,7 +46,7 @@ public class Shotgun : weapons
         // 处理武器翻转
         if (mousePos.x < transform.position.x)
         {
-            transform.localScale = new Vector3(-flipY, flipY, 1);
+            transform.localScale = new Vector3(flipY, -flipY, 1);
         }
         else
         {
@@ -80,7 +80,7 @@ public class Shotgun : weapons
         {
             state = ShotgunState.Idle;
         }
-        animator.SetInteger("ShotgunState", (int)state);
+        animator.SetInteger("equal", (int)state);
     }
     // 新增旋转方法（与Gunweapon一致）
     private void SmoothRotateTowardsMouse()
@@ -137,6 +137,10 @@ public class Shotgun : weapons
         return bullet;
     }
 
-    public void ReleaseBulletToPool(Bullet bullet) => bulletPool.Release(bullet);
+    public void ReleaseBulletToPool(Bullet bullet)
+    {
+        bullet.Reload(); // 确保状态重置
+        bulletPool.Release(bullet);
+    }
     #endregion
 }

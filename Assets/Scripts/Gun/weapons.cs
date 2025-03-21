@@ -84,4 +84,9 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
     {
         throw new System.NotImplementedException();
     }
+    public void UpgradeTo(int targetLevel)
+    {
+        Level = targetLevel;
+        ConfigureStats();
+    }
 }

@@ -185,7 +185,7 @@ MonoBehaviour:
     m_Bits: 256
   aimLerp: 6
   <Level>k__BackingField: 0
-  damage: 0
+  damage: 15
   animator: {fileID: 3782610598033345124}
   attackDelay: 0.3
   shootingPoint: {fileID: 6921800652574427848}
