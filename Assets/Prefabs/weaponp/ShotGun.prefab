@@ -132,12 +132,11 @@ MonoBehaviour:
   damage: 10
   animator: {fileID: 1749151060710222927}
   attackDelay: 1
-  muzzlePos: {fileID: 5732492395114401904}
+  shootingPoint: {fileID: 5732492395114401904}
   bulletPrefab: {fileID: 4176133185586503304, guid: 5b3452bfbdcc8574fa1ec14d8c4856ec,
     type: 3}
   baseBulletNum: 3
   baseSpreadAngle: 15
-  rotationSpeed: 15
 --- !u!1 &4829253211470478094
 GameObject:
   m_ObjectHideFlags: 0

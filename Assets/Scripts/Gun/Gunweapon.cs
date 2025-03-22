@@ -8,33 +8,26 @@ using UnityEngine.Windows;
 using Input = UnityEngine.Input;
 public class Gunweapon : weapons
 {
-    [SerializeField] private Transform shootingPoint;
-    [SerializeField] private Bullet bulletPrefab;
-    private Vector2 mousePos; // 记录鼠标位置  
-    private Vector2 direction; // 射击方向  
-    private float flipY;
-    private ObjectPool<Bullet> bulletPool;
-    private float rotationSpeed = 10f; // 控制旋转速度  
+    [SerializeField] protected Transform shootingPoint;
+    [SerializeField] protected Bullet bulletPrefab;
+    protected Vector2 mousePos;
+    protected Vector2 direction;
+    protected float flipY;
+   // protected ObjectPool<Bullet> bulletPool;
+    protected float rotationSpeed = 10f;
+
     private enum gunState { idle, SHOOT };
 
-    void Start()
+    protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         flipY = transform.localScale.y;
-        bulletPool = new ObjectPool<Bullet>(CreateFunction, ActionOnGet, ActionOnRelease, ActionOnDestroy);
+       
     }
 
-    void Update()
+    protected virtual void Update()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (mousePos.x < transform.position.x)
-        {
-            transform.localScale = new Vector3(flipY, -flipY, 1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(flipY, flipY, 1);
-        }
+        HandleWeaponFlip();
         GunAnim();
         ManageShooting();
         SmoothRotateTowardsMouse();
@@ -52,6 +45,13 @@ public class Gunweapon : weapons
         }
         animator.SetInteger("equal", (int)states);
     }
+    protected void HandleWeaponFlip()
+    {
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.localScale = mousePos.x < transform.position.x
+            ? new Vector3(flipY, -flipY, 1)
+            : new Vector3(flipY, flipY, 1);
+    }
     private void SmoothRotateTowardsMouse()
     {
         direction = (mousePos - new Vector2(transform.position.x, transform.position.y)).normalized;
@@ -60,35 +60,15 @@ public class Gunweapon : weapons
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
-    private Bullet CreateFunction()
-    {
-        Bullet bulletInstance = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
-        bulletInstance.Configure(this);
-        return bulletInstance;
-    }
+    //private Bullet CreateFunction()
+    //{
+    //    GameObject bulletObj = ObjectPoolManager.Instance.GetObject("Bullet", shootingPoint.position, Quaternion.identity);
+    //    Bullet bulletInstance = bulletObj.GetComponent<Bullet>();
+    //    bulletInstance.Configure(this);
+    //    return bulletInstance;
+    //}
 
-    private void ActionOnGet(Bullet bullet)
-    {
-        bullet.Reload();
-        bullet.transform.position = shootingPoint.position;
-        bullet.gameObject.SetActive(true);
-    }
-
-    private void ActionOnRelease(Bullet bullet)
-    {
-        bullet.gameObject.SetActive(false);
-    }
-
-    private void ActionOnDestroy(Bullet bullet)
-    {
-        Destroy(bullet.gameObject);
-    }
-
-    public void ReleaseBullet(Bullet bullet)
-    {
-        bulletPool.Release(bullet);
-    }
-
+   
     private void ManageShooting()
     {
         attackTimer += Time.deltaTime;
@@ -101,13 +81,19 @@ public class Gunweapon : weapons
         }
     }
 
-    private void Shoot()
-    {
-        int damage = GetDamage(out bool isCriticalHit);
-        direction = (mousePos - new Vector2(transform.position.x, transform.position.y)).normalized;
-        Bullet bulletInstance = bulletPool.Get();
-        bulletInstance.Shoot(damage, direction,isCriticalHit);
-      //  Instantiate(shellPrefab, shellPos.position, shellPos.rotation);
+    protected virtual void Shoot()
+    {  int damage = GetDamage(out bool isCriticalHit);
+    direction = (mousePos - (Vector2) transform.position).normalized;
+
+        // 从对象池获取子弹
+        GameObject bulletObj = ObjectPool.Instance.GetObject(bulletPrefab.gameObject);
+        bulletObj.transform.position = shootingPoint.position;
+        bulletObj.transform.rotation = Quaternion.identity;
+
+
+        Bullet bulletInstance = bulletObj.GetComponent<Bullet>();
+    bulletInstance.Configure(this);
+    bulletInstance.Shoot(damage, direction, isCriticalHit);
     }
 
     public override void UpdateStats(PlayerStatsManager playerStatsManager)

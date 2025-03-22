@@ -13,15 +13,16 @@ public class Bullet : MonoBehaviour
     [SerializeField] private LayerMask wallMask;
     private int damage;
     private bool isCriticalHit;
-    private Gunweapon gunWeapon;
+    private bool isReleased = false;
+
+     private Gunweapon gunWeapon;
     private Enemy target;//确保只攻击一个敌人
     private weapons parentWeapon;
-    private bool isReleased = false;
     private void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
-        //LeanTween.delayedCall(gameObject, 5, () => rangeEnemyAttack.ReleaseBullet(this));
+    
 
     }
     void Start()
@@ -34,11 +35,14 @@ public class Bullet : MonoBehaviour
     }
     public void Shoot(int damage,Vector2 direction,bool isCriticalHit)
     {
+        gameObject.SetActive(true);
+        collider.enabled = true;//
+        isReleased = false;//
         this.damage = damage;
         this.isCriticalHit = isCriticalHit;
         transform.right = direction;
         rig.velocity = direction * moveSpeed;
-        // 移除 Invoke("Release", 1);
+     
     }
     public void Configure(weapons weapon)
     {
@@ -51,7 +55,9 @@ public class Bullet : MonoBehaviour
         // 优先检测墙壁
         if (IsInLayerMask(collider.gameObject.layer, wallMask))
         {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
+            exp.transform.position = transform.position;
+            exp.transform.rotation = Quaternion.identity;
             Release();
             return;
         }
@@ -62,15 +68,15 @@ public class Bullet : MonoBehaviour
             target = collider.GetComponent<Enemy>();
             CancelInvoke(); // 取消Shoot中的延迟释放
             Attack(target);
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
+            exp.transform.position = transform.position;
+            exp.transform.rotation = Quaternion.identity;
             Release();
         }
     }
     private void Attack(Enemy enemy)
     {
         enemy.TakeDamage(damage,isCriticalHit);
-        
-        //Destroy(gameObject);
     }
     private bool IsInLayerMask(int layer,LayerMask layerMask)
     {
@@ -85,12 +91,11 @@ public class Bullet : MonoBehaviour
     }
     private void Release()
     {
-        if (isReleased) return; // 如果已释放，直接返回
+        if (isReleased) return;
         isReleased = true;
-
-        if (parentWeapon is Shotgun shotgun)
-            shotgun.ReleaseBulletToPool(this);
-        else if (parentWeapon is Gunweapon gun)
-            gun.ReleaseBullet(this);
+        rig.velocity = Vector2.zero;
+        collider.enabled = false; // 禁用碰撞体
+        gameObject.SetActive(false); // 显式禁用对象
+        ObjectPool.Instance.PushObject(gameObject); // 直接使用 ObjectPool 单例
     }
 }

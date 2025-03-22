@@ -28,3 +28,4 @@ MonoBehaviour:
   luck: 1
   dodge: 100
   lifeSteal: 1
+  spreadCount: 1

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class explosion : MonoBehaviour
+public class Explosion : MonoBehaviour
 {
     private Animator animator;
     private AnimatorStateInfo info;
@@ -15,15 +15,14 @@ public class explosion : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
+   
     void Update()
     {
         info = animator.GetCurrentAnimatorStateInfo(0);
-        if(info.normalizedTime>=1)
+        if (info.normalizedTime >= 1)
         {
-            Destroy(gameObject);
+            ObjectPool.Instance.PushObject(gameObject);
         }
-        
+
     }
 }
