@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb6472b3457bafe45bc520976e40f73b, type: 3}
+  m_Name: LaserData
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Laser
+  <Sprite>k__BackingField: {fileID: 6398881092346017774, guid: e1a1926a29edda845a01f75685f42bec,
+    type: 3}
+  <PurchasePrice>k__BackingField: 100
+  <Prefab>k__BackingField: {fileID: 3922438814936665003, guid: 9956a6bd05e3fd54da84171ea00a98b8,
+    type: 3}
+  attack: 2
+  attackSpeed: 1
+  critialChance: 1
+  critialPercent: 1
+  range: 2
+  num: 0

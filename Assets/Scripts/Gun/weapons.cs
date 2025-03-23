@@ -9,6 +9,7 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
     
     [SerializeField] protected float range;
     [SerializeField] protected LayerMask enemyMask;
+    [SerializeField] protected LayerMask wallMask;
     [SerializeField] protected float aimLerp;
 
     [field:SerializeField]public int Level { get; private set; }

@@ -5,36 +5,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 public class WeaponSelectionContainer : MonoBehaviour
 {
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameText;
     [field: SerializeField] public Button Button { get; private set; }
     [SerializeField] private Image[] levelDependentImages;
-    public void Configure(Sprite sprite,string name,int level)
+    [SerializeField] private Sprite statIcon;
+    [SerializeField] private Transform statContainersParent;
+    [SerializeField] private StatContainer statContainerPrefab;
+   // private WeaponDataSO weaponData;
+    public void Configure(Sprite sprite,string name,int level,WeaponDataSO weaponData)
     {
         icon.sprite = sprite;
         nameText.text = name;
         Color imageColor
         =ColorHolder.GetColor(level);
-        //switch(level){
-        //    case 0:
-        //        imageColor = Color.red;
-        //        break;
-        //        case 1:
-        //        imageColor = Color.red;
-        //        break;
-        //    case 2:
-        //        imageColor = Color.red;
-        //        break;
-        //    default:
-        //        imageColor = Color.red;
-        //        break;
-
-        //}
+       
         foreach (Image image in levelDependentImages)
             image.color = imageColor;
+        ConfigureStatContainers(weaponData);
     }
+
+    private void ConfigureStatContainers(WeaponDataSO weaponData)
+    {
+        foreach(KeyValuePair<Stat,float>kvp in weaponData.BaseStats)
+        {
+            StatContainer containerInstance = Instantiate(statContainerPrefab,statContainersParent);
+            containerInstance.Configure(statIcon, Enums.FormatStatName(kvp.Key), kvp.Value.ToString()) ;
+        }
+        
+    }
+
     public void Select()
     {
         LeanTween.cancel(gameObject);

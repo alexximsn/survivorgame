@@ -72,6 +72,9 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 256
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 128
   aimLerp: 12
   <Level>k__BackingField: 0
   damage: 0
