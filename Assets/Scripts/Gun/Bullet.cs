@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     private bool isCriticalHit;
     private bool isReleased = false;
 
-     private Gunweapon gunWeapon;
+   private Gunweapon gunWeapon;
     private Enemy target;//确保只攻击一个敌人
     private weapons parentWeapon;
     private void Awake()
@@ -82,14 +82,14 @@ public class Bullet : MonoBehaviour
     {
         return (layerMask.value&(1<<layer))!=0;
     }
-    public void Reload()
+    public virtual void Reload()
     {
         isReleased = false;
         target = null;
         rig.velocity = Vector2.zero;
         collider.enabled = true;
     }
-    private void Release()
+    public virtual void Release()
     {
         if (isReleased) return;
         isReleased = true;

@@ -37,6 +37,7 @@ public class ObjectPool
         }
         _object = objectPool[prefab.name].Dequeue();
         _object.SetActive(true);
+        _object.GetComponent<Rocket>()?.ResetState();
         return _object;
     }
 

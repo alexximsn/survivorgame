@@ -9,11 +9,11 @@ using Input = UnityEngine.Input;
 public class Gunweapon : weapons
 {
     [SerializeField] protected Transform shootingPoint;
-    [SerializeField] protected Bullet bulletPrefab;
+    [SerializeField] protected GameObject bulletPrefab;
     protected Vector2 mousePos;
     protected Vector2 direction;
     protected float flipY;
-   // protected ObjectPool<Bullet> bulletPool;
+ 
     protected float rotationSpeed = 10f;
 
     private enum gunState { idle, SHOOT };
@@ -58,17 +58,7 @@ public class Gunweapon : weapons
         float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-    }
-
-    //private Bullet CreateFunction()
-    //{
-    //    GameObject bulletObj = ObjectPoolManager.Instance.GetObject("Bullet", shootingPoint.position, Quaternion.identity);
-    //    Bullet bulletInstance = bulletObj.GetComponent<Bullet>();
-    //    bulletInstance.Configure(this);
-    //    return bulletInstance;
-    //}
-
-   
+    } 
     private void ManageShooting()
     {
         attackTimer += Time.deltaTime;
@@ -80,7 +70,6 @@ public class Gunweapon : weapons
             Shoot();
         }
     }
-
     protected virtual void Shoot()
     {  int damage = GetDamage(out bool isCriticalHit);
     direction = (mousePos - (Vector2) transform.position).normalized;

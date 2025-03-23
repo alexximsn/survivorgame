@@ -4,41 +4,41 @@ using UnityEngine;
 
 public class Rocketdan : Gunweapon
 {
-    //public int rocketNum = 3;
-    //public float rocketAngle = 15;
+    [Header("Rocket Settings")]
+    [SerializeField] public int rocketNum = 5;
+    [SerializeField] public float rocketAngle = 30f;
 
-    //protected override void Shoot()
-    //{
-    //    animator.SetTrigger("Shoot");
-    //    StartCoroutine(DelayFire(.2f));
-    //}
+    protected override void Shoot()
+    {
+        StartCoroutine(DelayFire(0.2f));
+    }
 
-    //IEnumerator DelayFire(float delay)
-    //{
-    //    yield return new WaitForSeconds(delay);
+    private IEnumerator DelayFire(float delay)
+    {
+        yield return new WaitForSeconds(delay);
 
-    //    int median = rocketNum / 2;
-    //    for (int i = 0; i < rocketNum; i++)
-    //    {
-    //        Bullet bullet = bulletPool.Get();
-    //        bullet.transform.position = shootingPoint.position;
+        Vector2 shootDirection = (mousePos - (Vector2)transform.position).normalized;
+        float angleStep = rocketAngle / (rocketNum - 1);
 
-    //        Vector2 modifiedDirection;
-    //        if (rocketNum % 2 == 1)
-    //        {
-    //            modifiedDirection = Quaternion.AngleAxis(rocketAngle * (i - median), Vector3.forward) * direction;
-    //        }
-    //        else
-    //        {
-    //            modifiedDirection = Quaternion.AngleAxis(rocketAngle * (i - median) + rocketAngle / 2, Vector3.forward) * direction;
-    //        }
+        for (int i = 0; i < rocketNum; i++)
+        {
+            GameObject rocketObj = ObjectPool.Instance.GetObject(bulletPrefab);
+            rocketObj.transform.position = shootingPoint.position;
 
-    //        if (bullet is RocketBullet rocket)
-    //        {
-    //            rocket.SetTarget(mousePos);
-    //            rocket.Shoot(GetDamage(out bool isCritical), modifiedDirection, isCritical);
-    //        }
-    //    }
-    //}
+            // 霰弹枪式对称散布
+            float angleOffset = -rocketAngle / 2 + angleStep * i;
+            Vector2 spreadDir = Quaternion.AngleAxis(angleOffset, Vector3.forward) * shootDirection;
+
+            Rocket rocket = rocketObj.GetComponent<Rocket>();
+            rocket.ShootStraight(spreadDir.normalized);
+        }
+    }
+
+    public override void UpdateStats(PlayerStatsManager playerStatsManager)
+    {
+        base.UpdateStats(playerStatsManager);
+        // 可添加火箭专属属性强化逻辑
+        rocketNum += Mathf.RoundToInt(playerStatsManager.GetStatValue(Stat.SpreadCount));
+    }
 
 }

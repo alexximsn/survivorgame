@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb6472b3457bafe45bc520976e40f73b, type: 3}
+  m_Name: Rocket
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Rocket
+  <Sprite>k__BackingField: {fileID: 8924045752009221412, guid: e1a1926a29edda845a01f75685f42bec,
+    type: 3}
+  <PurchasePrice>k__BackingField: 300
+  <Prefab>k__BackingField: {fileID: 5075680159306848641, guid: a8f68ba12ec188c4b8db2e755bcaf914,
+    type: 3}
+  attack: 10
+  attackSpeed: 3
+  critialChance: 0
+  critialPercent: 0
+  range: 5
+  num: 0
