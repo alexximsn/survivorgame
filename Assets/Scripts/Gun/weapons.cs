@@ -72,13 +72,14 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
     public abstract void UpdateStats(PlayerStatsManager playerStatsManager);
     protected void ConfigureStats()
     {
-        float multiplier = 1 + (float)Level / 3;
-        damage = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.Attack)*multiplier);
-        attackDelay = 1f / (WeaponData.GetStatValue(Stat.AttackSpeed) * multiplier);
-        critialChance = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.CritialChange) * multiplier);
-        critialPercent = WeaponData.GetStatValue(Stat.CritialPercent) * multiplier;
-        if(WeaponData.Prefab.GetType()==typeof(Gunweapon))
-        range = WeaponData.GetStatValue(Stat.Range) * multiplier;
+        Dictionary<Stat, float> calculatedStats = WeaponStatsCalculator.GetStats(WeaponData, Level);
+       
+        damage = Mathf.RoundToInt(calculatedStats[Stat.Attack]);
+        attackDelay = 1f / calculatedStats[Stat.AttackSpeed];
+        critialChance = Mathf.RoundToInt(calculatedStats[Stat.CritialChange] );
+        critialPercent = calculatedStats[Stat.CritialPercent] ;
+      
+        range = calculatedStats[Stat.Range] ;
     }
 
     internal void Update()

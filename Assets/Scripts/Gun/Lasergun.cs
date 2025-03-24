@@ -6,7 +6,7 @@ public class Lasergun : Gunweapon
 {
     [Header("Laser Settings")]
     [SerializeField] private LineRenderer laser;
-    [SerializeField] private GameObject hitEffect;
+    private GameObject hitEffect;
     [SerializeField] private float damageInterval = 0.2f;
 
     private bool isShooting;
@@ -17,7 +17,7 @@ public class Lasergun : Gunweapon
         base.Start();
         laser.positionCount = 2;
         laser.enabled = false;
-        hitEffect.SetActive(false);
+        hitEffect = transform.Find("Effect").gameObject;
     }
 
     protected override void Update()
@@ -43,6 +43,7 @@ public class Lasergun : Gunweapon
     {
         isShooting = true;
         laser.enabled = true;
+        hitEffect.SetActive(true);
         animator.SetBool("Shoot", true);
     }
 
@@ -74,7 +75,7 @@ public class Lasergun : Gunweapon
         laser.SetPosition(0, shootingPoint.position);
         laser.SetPosition(1, hit.point);
         hitEffect.transform.position = hit.point;
-        hitEffect.SetActive(hit.collider != null);
+        hitEffect.transform.forward = -direction;
     }
 
     private void ApplyContinuousDamage()
