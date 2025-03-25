@@ -16,10 +16,10 @@ public class WeaponSelectionContainer : MonoBehaviour
     [SerializeField] private Transform statContainersParent;
    
    // private WeaponDataSO weaponData;
-    public void Configure(Sprite sprite,string name,int level,WeaponDataSO weaponData)
+    public void Configure(int level,WeaponDataSO weaponData)
     {
-        icon.sprite = sprite;
-        nameText.text = name+$"\nlv{level+1}";
+        icon.sprite = weaponData.Sprite;
+        nameText.text = weaponData.Name+$"\nlv{level+1}";
         Color imageColor =ColorHolder.GetColor(level);
         nameText.color = imageColor;
         foreach (Image image in levelDependentImages)

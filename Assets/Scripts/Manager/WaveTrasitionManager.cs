@@ -10,9 +10,23 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
 {
     [SerializeField] private UpgradeContainer[] upgrateContainers;
     [SerializeField] private PlayerStatsManager playerStatsManager;
+    [SerializeField] private GameObject upgradeContainersParent;
+    private int chestsCollected;
 
+    [SerializeField] private ChestObjectContainer chestContainerPrefab;
+    [SerializeField] private Transform chestContainerParent;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        Chest.onCollected += ChestCollectedCallback;
+    }
+
+    
+
+    private void OnDestroy()
+    {
+        Chest.onCollected -= ChestCollectedCallback;
+    }
     void Start()
     {
         
@@ -28,13 +42,32 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
        switch(gameState)
         {
             case GameState.WAVETRANSITION:
-                ConfigureUpgradeContainers();
+                TryOpenChest();
                 break;
         }
+    }
+    private void TryOpenChest()
+    {
+        if (chestsCollected > 0)
+            ShowObject();
+        else
+            ConfigureUpgradeContainers();
+
+    }
+    private void ShowObject()
+    {
+        chestsCollected--;
+        upgradeContainersParent.SetActive(false);
+        ObjectDataSO[] objectDatas = ResoursesManager.Objects;
+        ObjectDataSO randomObjectData= objectDatas[Random.Range(0, objectDatas.Length)];
+        ChestObjectContainer containerInstance = Instantiate(chestContainerPrefab, chestContainerParent);
+        containerInstance.Configure(randomObjectData);
+        
     }
     [Button]
     private void ConfigureUpgradeContainers()
     {
+        upgradeContainersParent.SetActive(true);
         for (int i = 0; i < upgrateContainers.Length; i++)
         {
 
@@ -117,5 +150,9 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
 
         }
         return () => playerStatsManager.AddPlayerStat(stat,value);
+    }
+    private void ChestCollectedCallback()
+    {
+        chestsCollected++;
     }
 }

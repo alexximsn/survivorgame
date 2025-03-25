@@ -10,44 +10,37 @@ public class PlayerStatsManager : MonoBehaviour
 
     private Dictionary<Stat, float> playerStats = new Dictionary<Stat, float>();
     private Dictionary<Stat, float> addends = new Dictionary<Stat, float>();
+    private Dictionary<Stat, float> objectAddends = new Dictionary<Stat, float>();
     private void Awake()
     {
         playerStats = playerData.BaseStats;
         foreach (KeyValuePair<Stat, float> kvp in playerStats)
-            addends.Add(kvp.Key, 0);
+        {   addends.Add(kvp.Key, 0);
+            objectAddends.Add(kvp.Key, 0);
+        } 
     }
     void Start()
     {
        
         UpdatePlayerStats();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    } 
     public void AddPlayerStat(Stat stat,float value)
     {
         if (addends.ContainsKey(stat))
-
-        {
-            if (stat == Stat.Movespeed)
-                Debug.Log(addends[stat] + "-Before");
               addends[stat] += value;
-            if (stat == Stat.Movespeed)
-                Debug.Log(addends[stat] + "-After");
-        
-        }
         else
            Debug.LogError($"12222");
         UpdatePlayerStats();
     }
-    public float GetStatValue(Stat stat)
+    public void AddObject(Dictionary<Stat,float> objectStats)
     {
-        float value = playerStats[stat] + addends[stat];
-        return value;
+        foreach (KeyValuePair<Stat, float> kvp in objectStats)
+        
+            objectAddends[kvp.Key] += kvp.Value;
+        UpdatePlayerStats();
     }
+    public float GetStatValue(Stat stat)
+   => playerStats[stat] +addends[stat]+objectAddends[stat];
 
     private void UpdatePlayerStats()
     {

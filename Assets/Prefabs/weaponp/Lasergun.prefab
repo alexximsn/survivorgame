@@ -255,7 +255,7 @@ MonoBehaviour:
   shootingPoint: {fileID: 1058471754898722546}
   bulletPrefab: {fileID: 0}
   laser: {fileID: 3202755429484884850}
-  damageInterval: 0.2
+  damageInterval: 0.5
 --- !u!95 &7470658069058891050
 Animator:
   serializedVersion: 5

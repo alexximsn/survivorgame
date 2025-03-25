@@ -69,9 +69,13 @@ public abstract class Enemy : MonoBehaviour
             PassAway();
 
     }
-    private void PassAway()
+    public void PassAway()
     {
         onPassedAway?.Invoke(transform.position);
+        PassAwayAfterWave();
+    }
+    public void PassAwayAfterWave()
+    {
         dieParticles.transform.SetParent(null);
         dieParticles.Play();//播放粒子效果
         Destroy(gameObject);//摧毁敌人

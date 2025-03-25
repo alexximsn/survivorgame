@@ -28,17 +28,11 @@ public class WeaponSelectionManager : MonoBehaviour,IGameStateListener
                 break;
         }
     }
-
-    // Start is called before the first frame update
     void Start()
-    {
-        
+    {    
     }
-
-    // Update is called once per frame
     void Update()
-    {
-        
+    {   
     }
     private void Configure()
     {
@@ -52,7 +46,7 @@ public class WeaponSelectionManager : MonoBehaviour,IGameStateListener
         WeaponDataSO weaponData = starterWeapons[Random.Range(0, starterWeapons.Length)];
         int level = Random.Range(0, 4);
         
-        containerInstance.Configure(weaponData.Sprite,weaponData.Name,level,weaponData);
+        containerInstance.Configure(level,weaponData);
         containerInstance.Button.onClick.RemoveAllListeners();
         containerInstance.Button.onClick.AddListener(() => WeaponSelectedCallback(containerInstance, weaponData,level));
     }
