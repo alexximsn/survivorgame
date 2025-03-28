@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 using NaughtyAttributes;
 public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
 {
+    public static WaveTrasitionManager instance;
+    [SerializeField] private PlayerObject playerObjects;
     [SerializeField] private UpgradeContainer[] upgrateContainers;
     [SerializeField] private PlayerStatsManager playerStatsManager;
     [SerializeField] private GameObject upgradeContainersParent;
@@ -18,6 +20,10 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
 
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
         Chest.onCollected += ChestCollectedCallback;
     }
 
@@ -48,6 +54,7 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
     }
     private void TryOpenChest()
     {
+        chestContainerParent.Clear();
         if (chestsCollected > 0)
             ShowObject();
         else
@@ -62,7 +69,19 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
         ObjectDataSO randomObjectData= objectDatas[Random.Range(0, objectDatas.Length)];
         ChestObjectContainer containerInstance = Instantiate(chestContainerPrefab, chestContainerParent);
         containerInstance.Configure(randomObjectData);
-        
+
+        containerInstance.TakeButton.onClick.AddListener(() => TakeButtonCallback(randomObjectData));
+        containerInstance.RecycleButton.onClick.AddListener(() => RecycleButtonCallback(randomObjectData));
+    }
+    private void TakeButtonCallback(ObjectDataSO objectToTake)
+    {
+        playerObjects.AddObject(objectToTake);
+        TryOpenChest();
+    }
+    private void RecycleButtonCallback(ObjectDataSO objectToRecycle)
+    {
+        CurrencyManager.instance.AddCurrency(objectToRecycle.RecyclePrice);
+        TryOpenChest();
     }
     [Button]
     private void ConfigureUpgradeContainers()
@@ -73,10 +92,11 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
 
             int randomIndex = Random.Range(0, Enum.GetValues(typeof(Stat)).Length);
             Stat stat = (Stat)Enum.GetValues(typeof(Stat)).GetValue(randomIndex);
+            Sprite upgradeSprite = ResoursesManager.GetStatIcon(stat);
             string randomStatString = Enums.FormatStatName(stat);
             string buttonString;
             Action action = GetActionToPerform(stat, out buttonString);
-            upgrateContainers[i].Configure(null, randomStatString, buttonString);
+            upgrateContainers[i].Configure(upgradeSprite, randomStatString, buttonString);
 
             upgrateContainers[i].Button.onClick.RemoveAllListeners();
             upgrateContainers[i].Button.onClick.AddListener(() => action?.Invoke());
@@ -149,10 +169,16 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
                 return () => Debug.Log("Invalid stat");
 
         }
+        //buttonString=Enums.FormatStatName(stat)+"\n"+buttonString;
         return () => playerStatsManager.AddPlayerStat(stat,value);
     }
+    
     private void ChestCollectedCallback()
     {
         chestsCollected++;
+    }
+    public bool HasCollectedChest()
+    {
+        return chestsCollected > 0;
     }
 }

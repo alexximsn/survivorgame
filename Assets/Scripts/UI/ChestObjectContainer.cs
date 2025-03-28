@@ -9,15 +9,15 @@ public class ChestObjectContainer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [field: SerializeField] public Button TakeButton { get; private set; }
     [field: SerializeField] public Button RecycleButton { get; private set; }
+    [SerializeField] public TextMeshProUGUI recyclePriceText;
     [SerializeField] private Image[] levelDependentImages;
-
     [SerializeField] private Transform statContainersParent;
 
-    // private WeaponDataSO weaponData;
     public void Configure(ObjectDataSO objectData)
     {
         icon.sprite =objectData.Icon;
-        nameText.text = name;
+        nameText.text = objectData.Name;
+        recyclePriceText.text = objectData.RecyclePrice.ToString();
         Color imageColor = ColorHolder.GetColor(objectData.Rarity);
         nameText.color = imageColor;
         foreach (Image image in levelDependentImages)

@@ -16,6 +16,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 400396763, guid: 00b913f13bb4cd1488f26a676e299036,
     type: 3}
   <Price>k__BackingField: 100
+  <RecyclePrice>k__BackingField: 50
   <Rarity>k__BackingField: 0
   statDatas:
   - stat: 4
