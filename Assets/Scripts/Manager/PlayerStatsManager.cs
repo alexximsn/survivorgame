@@ -46,7 +46,7 @@ public class PlayerStatsManager : MonoBehaviour
     {
         IEnumerable<IPlayerStatsDependency> playerStatsDependencies =
            FindObjectsByType<MonoBehaviour>
-           (FindObjectsSortMode.None).OfType<IPlayerStatsDependency>();
+           (FindObjectsInactive.Include,FindObjectsSortMode.None).OfType<IPlayerStatsDependency>();
         foreach (IPlayerStatsDependency dependency in
            playerStatsDependencies)
             dependency.UpdateStats(this);

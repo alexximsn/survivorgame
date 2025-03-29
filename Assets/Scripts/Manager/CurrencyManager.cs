@@ -15,7 +15,7 @@ public class CurrencyManager : MonoBehaviour
     }
     void Start()
     {
-        
+        UpdateTexts();
     }  
     void Update()
     {
@@ -24,5 +24,12 @@ public class CurrencyManager : MonoBehaviour
     public void AddCurrency(int amount)
     {
         Currency += amount;
+        UpdateTexts();
+    }
+    private void UpdateTexts()
+    {
+        CurrencyText[] currencyTexts = FindObjectsByType<CurrencyText>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (CurrencyText text in currencyTexts)
+            text.UpdateText(Currency.ToString());
     }
 }
