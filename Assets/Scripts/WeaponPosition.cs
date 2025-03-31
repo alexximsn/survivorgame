@@ -5,16 +5,7 @@ using UnityEngine;
 public class WeaponPosition : MonoBehaviour
 {
     public weapons weapons { get; private set; }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
     public void AssignWeapon(weapons weapons,int weaponLevel)
     {
         weapons = Instantiate(weapons ,transform);

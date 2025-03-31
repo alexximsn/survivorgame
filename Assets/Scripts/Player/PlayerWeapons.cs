@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,9 +16,18 @@ public class PlayerWeapons : MonoBehaviour
     {
         
     }
-    public void AddWeapon(WeaponDataSO selectedWeapon,int weaponLevel)
+
+    public bool TryAddWeapon(WeaponDataSO weapon, int level)
     {
-        // Debug.Log("选择了" + selectedWeapon.Name+"等级："+weaponLevel);
-        weaponPositions[Random.Range(0, weaponPositions.Length)].AssignWeapon(selectedWeapon.Prefab,weaponLevel);
+        for(int i=0;i<weaponPositions.Length;i++)
+        {
+            if (weaponPositions[i].weapons != null)
+                continue;
+            weaponPositions[i].AssignWeapon(weapon.Prefab, level);
+            return true;
+        }
+
+        return false;
     }
+
 }
