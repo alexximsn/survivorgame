@@ -23,4 +23,4 @@ MonoBehaviour:
   critialChance: 1
   critialPercent: 1
   range: 5
-  num: 0
+  num: 1

@@ -37,9 +37,6 @@ public static class ResoursesManager
     }
 
 
-   
-
-
     private static WeaponDataSO[] weaponDatas;
     public static WeaponDataSO[] Weapons
     {

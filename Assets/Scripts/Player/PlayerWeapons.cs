@@ -19,15 +19,36 @@ public class PlayerWeapons : MonoBehaviour
 
     public bool TryAddWeapon(WeaponDataSO weapon, int level)
     {
-        for(int i=0;i<weaponPositions.Length;i++)
+        for (int i = 0; i < weaponPositions.Length; i++)
         {
-            if (weaponPositions[i].weapons != null)
+            if (weaponPositions[i].Weapon != null)
+            {
+              
                 continue;
-            weaponPositions[i].AssignWeapon(weapon.Prefab, level);
-            return true;
-        }
+            }
+            if (weaponPositions[i].Weapon == null)
+            {
+                weaponPositions[i].AssignWeapon(weapon.Prefab, level);
+            
+                return true;
+            }
+        
+    }
 
         return false;
+    }
+
+    public weapons[] GetWeapons()
+    {
+        List<weapons> weapona = new List<weapons>();
+        foreach(WeaponPosition weaponPosition in weaponPositions)
+        {
+            if (weaponPosition.Weapon == null)
+                continue;
+         
+            weapona.Add(weaponPosition.Weapon);
+        }
+        return weapona.ToArray();
     }
 
 }

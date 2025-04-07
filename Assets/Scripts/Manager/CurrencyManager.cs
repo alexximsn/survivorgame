@@ -23,6 +23,12 @@ public class CurrencyManager : MonoBehaviour
     {
         
     }
+
+    [NaughtyAttributes.Button]
+    private void Add500Currency()
+    {
+        AddCurrency(500);
+    }
     public void AddCurrency(int amount)
     {
         Currency += amount;

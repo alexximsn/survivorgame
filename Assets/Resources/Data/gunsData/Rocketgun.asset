@@ -20,7 +20,7 @@ MonoBehaviour:
     type: 3}
   attack: 10
   attackSpeed: 2
-  critialChance: 0
-  critialPercent: 0
+  critialChance: 1
+  critialPercent: 1
   range: 2
   num: 1

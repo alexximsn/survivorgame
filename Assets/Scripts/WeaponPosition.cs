@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class WeaponPosition : MonoBehaviour
 {
-    public weapons weapons { get; private set; }
+    public weapons Weapon{ get; private set; }
  
-    public void AssignWeapon(weapons weapons,int weaponLevel)
+    public void AssignWeapon(weapons weapon,int weaponLevel)
     {
-        weapons = Instantiate(weapons ,transform);
-        weapons.transform.localPosition = Vector3.zero;
-        weapons.transform.localRotation = Quaternion.identity;
-        weapons.UpgradeTo(weaponLevel);
+        Weapon = Instantiate(weapon ,transform);
+        Weapon.transform.localPosition = Vector3.zero;
+        Weapon.transform.localRotation = Quaternion.identity;
+        Weapon.UpgradeTo(weaponLevel);
+      
     }
 }
