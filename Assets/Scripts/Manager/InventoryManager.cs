@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -10,9 +11,31 @@ public class InventoryManager : MonoBehaviour,IGameStateListener
 
 
     [SerializeField] private Transform inventoryItemsParent;
+    [SerializeField] private Transform pauseInventoryItemParent;
     [SerializeField] private InventoryItemContainer inventoryItemContainer;
+    [SerializeField] private ShopManagerUI shopManagerUI;
+    [SerializeField] private InventoryItemInfo itemInfo;
 
-   
+    private void Awake()
+    {
+        ShopManager.onItemPurchased += ItemPurchasedCallback;
+        WeaponMerger.onMerge += WeaponMergeredCallback;
+
+        GameManager.onGamePaused += Configure;
+    }
+    private void OnDestroy()
+    {
+        ShopManager.onItemPurchased -= ItemPurchasedCallback;
+        WeaponMerger.onMerge -= WeaponMergeredCallback;
+
+        GameManager.onGamePaused -= Configure;
+    }
+
+    private void WeaponMergeredCallback(weapons mergeWeapons)
+    {
+        Configure();
+        itemInfo.Configure(mergeWeapons);
+    }
 
     void Start()
     {
@@ -32,15 +55,19 @@ public class InventoryManager : MonoBehaviour,IGameStateListener
     private void Configure()
     {
         inventoryItemsParent.Clear();
-
+        pauseInventoryItemParent.Clear();
         weapons[] weapons = playerWeapons.GetWeapons();
 
         for (int i = 0; i < weapons.Length; i++)
         {
+            if (weapons[i] == null)
+                continue;
            
             InventoryItemContainer container = Instantiate(inventoryItemContainer, inventoryItemsParent);
+            container.Configure(weapons[i],i,()=>ShowItemInfo(container));
 
-            container.Configure(weapons[i],()=>ShowItemInfo(container));
+            InventoryItemContainer pauseContainer = Instantiate(inventoryItemContainer, pauseInventoryItemParent);
+            pauseContainer.Configure(weapons[i], i, null);
         }
 
         ObjectDataSO[] objectDatas = playerObjects.Objects.ToArray();
@@ -48,22 +75,48 @@ public class InventoryManager : MonoBehaviour,IGameStateListener
         {
             InventoryItemContainer container = Instantiate(inventoryItemContainer, inventoryItemsParent);
             container.Configure(objectDatas[i], () => ShowItemInfo(container));
+
+            InventoryItemContainer pauseContainer = Instantiate(inventoryItemContainer, pauseInventoryItemParent);
+            pauseContainer.Configure(objectDatas[i], null);
         }
       
     }
     private void ShowItemInfo(InventoryItemContainer container)
     {
         if (container.Weapon != null)
-            ShowWeaponInfo(container.Weapon);
+            ShowWeaponInfo(container.Weapon,container.Index);
         else
             ShowObjectInfo(container.ObjectData);
     }
-    private void ShowWeaponInfo(weapons weapon)
+    private void ShowWeaponInfo(weapons weapon,int index)
     {
-        Debug.Log(weapon.WeaponData.Name);
+        itemInfo.Configure(weapon);
+
+        itemInfo.recycleButton.onClick.RemoveAllListeners();
+        itemInfo.recycleButton.onClick.AddListener(() => RecycleWeapon(index));
+        shopManagerUI.ShowItemInfo();
+    }
+    private void RecycleWeapon(int index)
+    {
+        playerWeapons.RecycleWeapon(index);
+        Configure();
+        shopManagerUI.HideItemInfo();
     }
     private void ShowObjectInfo(ObjectDataSO objectData)
     {
-        Debug.Log(objectData.Name);
+        itemInfo.Configure(objectData);
+        itemInfo.recycleButton.onClick.RemoveAllListeners();
+        itemInfo.recycleButton.onClick.AddListener(() => RecycleObject(objectData));
+        shopManagerUI.ShowItemInfo();
     }
+
+    private void RecycleObject(ObjectDataSO objectToRcycle)
+    {
+        playerObjects.RecycleObject(objectToRcycle);
+        Configure();
+        shopManagerUI.HideItemInfo();
+    }
+    private void ItemPurchasedCallback() => Configure();
+
+
 }

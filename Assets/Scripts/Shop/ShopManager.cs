@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 public class ShopManager : MonoBehaviour,IGameStateListener
 {
     [SerializeField] private Transform containersParent;
@@ -16,6 +18,7 @@ public class ShopManager : MonoBehaviour,IGameStateListener
     [SerializeField] private int rerollPrice;
     [SerializeField] private TextMeshProUGUI rerollPriceText;
 
+    public static Action onItemPurchased;
     private void Awake()
     {
         ShopItemContainer.onPurchased += ItemPurchasedCallback;
@@ -31,7 +34,6 @@ public class ShopManager : MonoBehaviour,IGameStateListener
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -108,11 +110,14 @@ public class ShopManager : MonoBehaviour,IGameStateListener
 
             Destroy(container.gameObject);
         }
+        onItemPurchased?.Invoke();
     }
     private void PurchaseObject(ShopItemContainer container)
     {
         playerObjects.AddObject(container.ObjectData);
         CurrencyManager.instance.UseCurrency(container.ObjectData.Price);
         Destroy(container.gameObject);
+        onItemPurchased?.Invoke();
     }
+   
 }

@@ -15,9 +15,10 @@ MonoBehaviour:
   <Name>k__BackingField: Laser
   <Sprite>k__BackingField: {fileID: 6398881092346017774, guid: e1a1926a29edda845a01f75685f42bec,
     type: 3}
-  <PurchasePrice>k__BackingField: 100
+  <PurchasePrice>k__BackingField: 400
   <Prefab>k__BackingField: {fileID: 3922438814936665003, guid: 9956a6bd05e3fd54da84171ea00a98b8,
     type: 3}
+  <RecyclePrice>k__BackingField: 200
   attack: 10
   attackSpeed: 1
   critialChance: 1

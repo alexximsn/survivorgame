@@ -37,6 +37,18 @@ public class PlayerWeapons : MonoBehaviour
 
         return false;
     }
+    public void RecycleWeapon(int weaponIndex)
+    {
+       for(int i=0;i<weaponPositions.Length;i++)
+        {
+            if (i != weaponIndex)
+                continue;
+            int recyclePrice = weaponPositions[i].Weapon.GetRecyclePrice();
+            CurrencyManager.instance.AddCurrency(recyclePrice);
+            weaponPositions[i].RemoveWeapon();
+            return;
+        }
+    }
 
     public weapons[] GetWeapons()
     {
@@ -44,8 +56,10 @@ public class PlayerWeapons : MonoBehaviour
         foreach(WeaponPosition weaponPosition in weaponPositions)
         {
             if (weaponPosition.Weapon == null)
-                continue;
+                weapona.Add(null);
          
+            else
+
             weapona.Add(weaponPosition.Weapon);
         }
         return weapona.ToArray();

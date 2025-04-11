@@ -39,6 +39,14 @@ public class PlayerStatsManager : MonoBehaviour
             objectAddends[kvp.Key] += kvp.Value;
         UpdatePlayerStats();
     }
+    public void RemoveObjectStats(Dictionary<Stat, float> objectStats)
+    {
+        foreach (KeyValuePair<Stat, float> kvp in objectStats)
+
+            objectAddends[kvp.Key] -= kvp.Value;
+        UpdatePlayerStats();
+
+    }
     public float GetStatValue(Stat stat)
    => playerStats[stat] +addends[stat]+objectAddends[stat];
 

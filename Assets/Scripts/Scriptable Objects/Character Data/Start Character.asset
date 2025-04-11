@@ -26,6 +26,6 @@ MonoBehaviour:
   healthRecoverySpeed: 1
   armor: 1
   luck: 1
-  dodge: 100
+  dodge: 10
   lifeSteal: 1
   spreadCount: 1

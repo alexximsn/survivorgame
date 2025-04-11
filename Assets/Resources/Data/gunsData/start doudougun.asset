@@ -15,9 +15,10 @@ MonoBehaviour:
   <Name>k__BackingField: doudou
   <Sprite>k__BackingField: {fileID: 4371079567834484094, guid: 45af50753e4a1ea40946a9eceeb76e6c,
     type: 3}
-  <PurchasePrice>k__BackingField: 100
+  <PurchasePrice>k__BackingField: 30
   <Prefab>k__BackingField: {fileID: 6707153448170330490, guid: 1f98fef6c3506674d81c3b25aca07ecf,
     type: 3}
+  <RecyclePrice>k__BackingField: 10
   attack: 100
   attackSpeed: 2
   critialChance: 5

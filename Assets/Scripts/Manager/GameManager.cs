@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    public static Action onGamePaused;
+    public static Action onGameResumed;
     private void Awake()
     {
         if (instance == null)
@@ -46,6 +50,23 @@ public class GameManager : MonoBehaviour
     public void ManageGameover()
     {
       SceneManager.LoadScene(0);
+    }
+
+    public void PauseBButtonCallback()
+    {
+        Time.timeScale = 0;
+        onGamePaused?.Invoke();
+    }
+    public void ResumeButtonCallback()
+    {
+        Time.timeScale = 1;
+        onGameResumed?.Invoke();
+    }
+
+    public void RestartFromPause()
+    {
+        Time.timeScale = 1;
+        ManageGameover();
     }
 
 
