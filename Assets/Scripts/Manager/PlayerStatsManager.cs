@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,24 @@ public class PlayerStatsManager : MonoBehaviour
     private Dictionary<Stat, float> objectAddends = new Dictionary<Stat, float>();
     private void Awake()
     {
+        CharacterSelectionManager.onCharacterSelected += CharacterSelectedCallback;
         playerStats = playerData.BaseStats;
         foreach (KeyValuePair<Stat, float> kvp in playerStats)
         {   addends.Add(kvp.Key, 0);
             objectAddends.Add(kvp.Key, 0);
         } 
+    }
+
+    private void CharacterSelectedCallback(CharacterDataSO characterData)
+    {
+        playerData = characterData;
+        playerStats = playerData.BaseStats;
+        UpdatePlayerStats();
+    }
+
+    private void OnDestroy()
+    {
+        CharacterSelectionManager.onCharacterSelected -= CharacterSelectedCallback;
     }
     void Start()
     {

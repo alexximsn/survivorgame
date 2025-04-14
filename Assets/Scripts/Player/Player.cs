@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(PlayerHealth),typeof(Playerlever))]
@@ -7,6 +8,8 @@ public class Player : MonoBehaviour
     public static Player instance;
     private PlayerHealth playerHealth;
     [SerializeField] private CircleCollider2D collider;
+    [SerializeField] private SpriteRenderer playerRenderer;
+    [SerializeField] private Animator playerRendererAnimator;
     private Playerlever playerLevel;
    private void Awake()
    {
@@ -17,7 +20,23 @@ public class Player : MonoBehaviour
 
      playerHealth=GetComponent<PlayerHealth>();
         playerLevel = GetComponent<Playerlever>();
-   }
+
+        CharacterSelectionManager.onCharacterSelected += CharacterSelectedCallback;
+    }
+
+    private void CharacterSelectedCallback(CharacterDataSO characterData)
+    {
+        playerRenderer.sprite = characterData.Sprite;
+        if (characterData.AnimOverrideController != null && playerRendererAnimator != null)
+        {
+            playerRendererAnimator.runtimeAnimatorController = characterData.AnimOverrideController;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        CharacterSelectionManager.onCharacterSelected -= CharacterSelectedCallback;
+    }
     void Start()
     {
         

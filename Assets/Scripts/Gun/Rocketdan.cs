@@ -68,7 +68,7 @@ public class Rocketdan : Gunweapon
     {
         base.ConfigureStats();
 
-        currentRocketNum = baseRocketNum + Mathf.RoundToInt(stats.GetStatValue(Stat.SpreadCount));
+        currentRocketNum = baseRocketNum ;
         currentSpreadAngle = baseSpreadAngle;
 
         damage = Mathf.RoundToInt(damage * (1 + stats.GetStatValue(Stat.Attack) / 100f));

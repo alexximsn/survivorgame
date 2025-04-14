@@ -69,7 +69,7 @@ public class Shotgun : Gunweapon {
     {
         base.ConfigureStats();
 
-        currentBulletNum = baseBulletNum + Mathf.RoundToInt(stats.GetStatValue(Stat.SpreadCount));
+        currentBulletNum = baseBulletNum;
         currentSpreadAngle = baseSpreadAngle;
 
         damage = Mathf.RoundToInt(damage * (1 + stats.GetStatValue(Stat.Attack) / 100f));

@@ -12,9 +12,7 @@ public class CurrencyText : MonoBehaviour
         if (text == null)
             text = GetComponent<TextMeshProUGUI>();
         text.text = currencyString;
-        {
-            
-        }
+       
 
     }
 

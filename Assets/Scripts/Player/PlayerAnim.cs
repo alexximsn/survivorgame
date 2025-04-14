@@ -4,33 +4,24 @@ using UnityEngine;
 
 public class PlayerAnim : MonoBehaviour
 {
-    private enum playerState { idle,run};
+    private Animator anim;
     private Vector2 input;
-    Animator anim;
+
     void Start()
     {
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         input.x = Input.GetAxisRaw("Horizontal");
-
         input.y = Input.GetAxisRaw("Vertical");
-        playerAnim();
+        UpdateAnimation();
     }
-    void playerAnim()
+
+    void UpdateAnimation()
     {
-        playerState states;
-        if(Mathf.Abs(input.x)>0|| Mathf.Abs(input.y)>0)
-        {
-            states = playerState.run;
-        }
-        else
-        {
-            states = playerState.idle;
-        }
-        anim.SetInteger("equal",(int) states);
+        bool isMoving = Mathf.Abs(input.x) > 0 || Mathf.Abs(input.y) > 0;
+        anim.SetBool("IsMoving", isMoving); // 使用更直观的布尔参数
     }
 }

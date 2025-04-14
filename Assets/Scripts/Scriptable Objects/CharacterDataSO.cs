@@ -8,6 +8,7 @@ public class CharacterDataSO : ScriptableObject
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
     [field: SerializeField] public int PurchasePrice { get; private set; }
+    [field: SerializeField]public AnimatorOverrideController AnimOverrideController { get; private set; } // 新增动画控制器字段
     [HorizontalLine]
     [SerializeField] private float attack;
     [SerializeField] private float attackSpeed;
@@ -21,7 +22,7 @@ public class CharacterDataSO : ScriptableObject
     [SerializeField] private float luck;
     [SerializeField] private float dodge;
     [SerializeField] private float lifeSteal;
-    [SerializeField] private float spreadCount;
+   
     public Dictionary<Stat, float> BaseStats
     {
         get
@@ -40,9 +41,24 @@ public class CharacterDataSO : ScriptableObject
                         {Stat.Lucky,luck},
                         {Stat.Dodge, dodge},
                         {Stat.LifeSteal,lifeSteal},
-                        {Stat.SpreadCount,spreadCount},
+                   
             };
         }
+        private set { }
+    }
+    public Dictionary<Stat, float> NonNeutralStats
+    {
+        get
+        {
+            Dictionary<Stat, float> nonNeutralStats = new Dictionary<Stat, float>();
+
+            foreach (KeyValuePair<Stat, float> kvp in BaseStats)
+                if (kvp.Value != 0)
+                    nonNeutralStats.Add(kvp.Key, kvp.Value);
+
+            return nonNeutralStats;
+        }
+
         private set { }
     }
 }

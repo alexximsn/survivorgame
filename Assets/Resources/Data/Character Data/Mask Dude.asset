@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2b5a3e61e14244490357e23674c852, type: 3}
+  m_Name: Mask Dude
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Mask Dude
+  <Sprite>k__BackingField: {fileID: -6367560908665664636, guid: 3750f45c844123341b9a777a96cb1eca,
+    type: 3}
+  <PurchasePrice>k__BackingField: 500
+  <AnimOverrideController>k__BackingField: {fileID: 22100000, guid: 28062af85ef0c904e97412bea5f74806,
+    type: 2}
+  attack: 1
+  attackSpeed: 1
+  critialChance: 1
+  critialPercent: 1
+  moveSpeed: 1
+  maxHealth: 1
+  range: 1
+  healthRecoverySpeed: 1
+  armor: 1
+  luck: 1
+  dodge: 1
+  lifeSteal: 1
