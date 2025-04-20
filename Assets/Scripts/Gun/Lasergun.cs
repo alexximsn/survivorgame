@@ -11,6 +11,7 @@ public class Lasergun : Gunweapon
 
     private bool isShooting;
     private float lastDamageTime;
+  
 
     protected override void Start()
     {
@@ -37,6 +38,8 @@ public class Lasergun : Gunweapon
     protected override void Shoot()
     {
         // 禁用基类子弹生成逻辑
+        onButtetShot?.Invoke();
+        PlayAttackSound();
     }
 
     private void StartShooting()

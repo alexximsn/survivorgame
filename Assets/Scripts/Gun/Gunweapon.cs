@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -16,10 +17,13 @@ public class Gunweapon : weapons
  
     protected float rotationSpeed = 10f;
 
+   
+    public static Action onButtetShot;//Ïà»úÕð¶¯
     private enum gunState { idle, SHOOT };
 
     protected virtual void Start()
     {
+        
         animator = GetComponent<Animator>();
         flipY = transform.localScale.y;
        
@@ -45,6 +49,7 @@ public class Gunweapon : weapons
         }
         animator.SetInteger("equal", (int)states);
     }
+   
     protected void HandleWeaponFlip()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -81,8 +86,10 @@ public class Gunweapon : weapons
 
 
         Bullet bulletInstance = bulletObj.GetComponent<Bullet>();
-    bulletInstance.Configure(this);
-    bulletInstance.Shoot(damage, direction, isCriticalHit);
+       bulletInstance.Configure(this);
+          bulletInstance.Shoot(damage, direction, isCriticalHit);
+        onButtetShot?.Invoke();
+        PlayAttackSound();
     }
 
     public override void UpdateStats(PlayerStatsManager playerStatsManager)

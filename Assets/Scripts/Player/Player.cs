@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         else
             Destroy(gameObject);
 
-     playerHealth=GetComponent<PlayerHealth>();
+        playerHealth=GetComponent<PlayerHealth>();
         playerLevel = GetComponent<Playerlever>();
 
         CharacterSelectionManager.onCharacterSelected += CharacterSelectedCallback;

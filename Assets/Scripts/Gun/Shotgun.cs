@@ -49,6 +49,8 @@ public class Shotgun : Gunweapon {
             Vector2 spreadDir = Quaternion.AngleAxis(angleOffset, Vector3.forward) * shootDirection;
             bullet.Shoot(finalDamage, spreadDir.normalized, isCritical);
         }
+        onButtetShot?.Invoke();
+        PlayAttackSound();
     }
     private void UpdateAnimationState()
     {

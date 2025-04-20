@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected bool gizmos;
     public static Action<int, Vector2,bool> onDamageTaken;
     public static Action<Vector2> onPassedAway;
+    protected Action onSpawnSequenceComplleted;
     protected virtual void Start()
     {
         health = maxHealth;//开始生命值最高
@@ -47,7 +48,10 @@ public abstract class Enemy : MonoBehaviour
         SetRenderersVisibility(true);//敌人出现
         hasSpawned = true;
         collider.enabled = true;//敌人产生后再启动碰撞使得武器识别
+        if(movement!=null)
         movement.StorePlayer(player);
+
+        onSpawnSequenceComplleted?.Invoke();
     }
 
     private void SetRenderersVisibility(bool visibility)//生成器出现，敌人出现；反之

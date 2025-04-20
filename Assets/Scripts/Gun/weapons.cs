@@ -22,7 +22,21 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
     protected float attackTimer;
     protected int critialChance;
     protected float critialPercent;
-  
+    private AudioSource audioSource;//枪声
+    private void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        
+        audioSource.clip = WeaponData.AttackSound;
+    }
+    protected void PlayAttackSound()
+    {
+        if (!AudioManager.instance.IsSFXOn)
+            return;
+        audioSource.pitch = UnityEngine.Random.Range(.95f, 1.05f);
+        audioSource.Play();
+    }
     void Start()
     {
       

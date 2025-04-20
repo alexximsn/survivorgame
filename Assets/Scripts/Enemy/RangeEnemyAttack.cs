@@ -89,16 +89,7 @@ public class RangeEnemyAttack : MonoBehaviour
         movement.SetMovementEnabled(true);
         isAttacking = false;
     }
-    //private void  ManageShooting()
-    //{
-    //    attackTimer += Time.deltaTime;
-    //    if(attackTimer>=attackDelay)
-    //    {
-    //        attackTimer = 0;
-    //        Shoot();
-    //    }
-
-    //}
+    
     public void OnShootEvent()
     {
         Shoot(); // 精确同步射击时机
@@ -117,9 +108,13 @@ public class RangeEnemyAttack : MonoBehaviour
     private void Shoot()
     {
         Vector2 direction = (player.GetCenter() - (Vector2)shootingPoint.position).normalized;
-        TreeEnemyBullet bulletInstance = bulletPool.Get();
-        bulletInstance.Shoot(damage,direction);
+        InstantShoot(direction);
       
+    }
+    public void InstantShoot(Vector2 direction)
+    {
+        TreeEnemyBullet bulletInstance = bulletPool.Get();
+        bulletInstance.Shoot(damage, direction);
     }
  
    
