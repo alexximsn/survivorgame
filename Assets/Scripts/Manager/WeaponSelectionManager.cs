@@ -44,7 +44,7 @@ public class WeaponSelectionManager : MonoBehaviour,IGameStateListener
     {
         WeaponSelectionContainer containerInstance = Instantiate(weaponContainerPrefab, containersParent);
         WeaponDataSO weaponData = starterWeapons[Random.Range(0, starterWeapons.Length)];
-        int level = Random.Range(0, 4);
+        int level = Random.Range(0, 1);
         
         containerInstance.Configure(level,weaponData);
         containerInstance.Button.onClick.RemoveAllListeners();

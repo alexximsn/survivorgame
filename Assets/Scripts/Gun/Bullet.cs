@@ -50,6 +50,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        //Debug.Log($"子弹碰撞到对象: {collider.gameObject.name}");
         if (isReleased) return; // 如果已释放，不再处理碰撞
 
         // 优先检测墙壁
@@ -63,7 +64,7 @@ public class Bullet : MonoBehaviour
         }
 
         // 处理敌人碰撞
-        if (target == null && IsInLayerMask(collider.gameObject.layer, enemyMask))
+        if (IsInLayerMask(collider.gameObject.layer, enemyMask))
         {
             target = collider.GetComponent<Enemy>();
             CancelInvoke(); // 取消Shoot中的延迟释放

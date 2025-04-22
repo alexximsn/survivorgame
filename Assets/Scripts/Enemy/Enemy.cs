@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected bool gizmos;
     public static Action<int, Vector2,bool> onDamageTaken;
     public static Action<Vector2> onPassedAway;
+    public static Action<Vector2> onBossPassedAway;
     protected Action onSpawnSequenceComplleted;
     protected virtual void Start()
     {
@@ -73,7 +74,7 @@ public abstract class Enemy : MonoBehaviour
             PassAway();
 
     }
-    public void PassAway()
+    public virtual void PassAway()
     {
         onPassedAway?.Invoke(transform.position);
         PassAwayAfterWave();

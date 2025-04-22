@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public bool IsSFXOn { get; private set; }
     public bool IsMusicOn { get; private set; }
 
+    [SerializeField] private AudioSource musicSource;
     private void Awake()
     {
         if (instance == null)
@@ -29,6 +30,10 @@ public class AudioManager : MonoBehaviour
     private void MusicStateChangedCallback(bool musicState)
     {
         IsMusicOn = musicState;
+        if (musicState)
+            musicSource.Play();
+        else
+            musicSource.Stop();
     }
 
     private void SFXStateChangedCallback(bool sfxState)

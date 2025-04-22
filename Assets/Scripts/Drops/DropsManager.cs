@@ -17,12 +17,20 @@ public class DropsManager : MonoBehaviour
     private void Awake()
     {
         Enemy.onPassedAway += EnemyPassedAwayCallback;
+        Enemy.onBossPassedAway += BossEnemyPassedAwayCallback;
         Coin.onCollected += ReleaseCoin;
         Drops.onCollected += Releasecherries;
     }
+
+    private void BossEnemyPassedAwayCallback(Vector2 bossPosition)
+    {
+        DropChest(bossPosition);
+    }
+
     private void OnDestroy()
     {
         Enemy.onPassedAway -= EnemyPassedAwayCallback;
+        Enemy.onBossPassedAway -= BossEnemyPassedAwayCallback;
         Coin.onCollected -= ReleaseCoin;
         Drops.onCollected -= Releasecherries;
     }
@@ -87,6 +95,10 @@ public class DropsManager : MonoBehaviour
         bool shouldSpawnChest = Random.Range(0, 101) <= chestDropChance;
         if (!shouldSpawnChest)
             return;
+        DropChest(spawnPosition);
+    }
+    private void DropChest(Vector2 spawnPosition)
+    {
         Instantiate(chestPrefab, spawnPosition, Quaternion.identity, transform);
     }
     private void ReleaseCoin(Coin coin) => coinPool.Release(coin);

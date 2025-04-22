@@ -110,8 +110,8 @@ public class WaveManager : MonoBehaviour,IGameStateListener
         Vector2 direction = Random.onUnitSphere;
         Vector2 offset = direction.normalized *Random.Range(6, 10);
         Vector2 targetPosition = (Vector2)player.transform.position * offset;
-        targetPosition.x = Mathf.Clamp(targetPosition.x, -18, 18);
-        targetPosition.y = Mathf.Clamp(targetPosition.y,-8,8);
+        targetPosition.x = Mathf.Clamp(targetPosition.x, -10, 10);
+        targetPosition.y = Mathf.Clamp(targetPosition.y,-6,6);
         return targetPosition;
     }
     public void GameStateChangedCallback(GameState gameState)

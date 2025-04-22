@@ -80,7 +80,10 @@ public class Boss : Enemy
     }
     private void ManageAttackingState()
     {
-       
+        if (attackCounter >= 8) // Ê¾Àý£º¹¥»÷3´ÎºóÍ£Ö¹
+        {
+            SetIdleState();
+        }
     }
 
     private void StartMovingState()
@@ -137,6 +140,11 @@ public class Boss : Enemy
         Vector2 direction = Quaternion.Euler(0, 0, -45 * attackCounter) * Vector2.up;
         attack.InstantShoot(direction);
         attackCounter++;
+    }
+    public override void PassAway()
+    {
+        onBossPassedAway?.Invoke(transform.position);
+        PassAwayAfterWave();
     }
 
 }

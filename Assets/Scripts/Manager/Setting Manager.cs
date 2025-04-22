@@ -143,6 +143,7 @@ public class SettingManager : MonoBehaviour, IWantToBeSaved
 
         UpdateSFXVisuals();
         UpdateMusicVisuals();
+        onMusicStateChanged?.Invoke(musicState);
     }
 
     public void Save()
