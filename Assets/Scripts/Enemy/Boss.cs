@@ -7,9 +7,9 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 public class Boss : Enemy
 {
-    [SerializeField] private Slider healthBar;
+    [SerializeField] private Slider healthBar;//生命值
     [SerializeField] private TextMeshProUGUI healthText;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator;//动画
     enum State { None,Idle,Moving,Attacking}
 
     private State state;
@@ -128,7 +128,7 @@ public class Boss : Enemy
         healthText.text = $"{health}/{maxHealth}";
     }
 
-    private Vector2 GetRandomPosition()
+    private Vector2 GetRandomPosition()//在设定的距离里随机移动
     {
         Vector2 targetPosition = Vector2.zero;
         targetPosition.x =Random.Range( -10f, 10f);
@@ -137,7 +137,7 @@ public class Boss : Enemy
     }
     private void Attack()
     {
-        Vector2 direction = Quaternion.Euler(0, 0, -45 * attackCounter) * Vector2.up;
+        Vector2 direction = Quaternion.Euler(0, 0, -45 * attackCounter) * Vector2.up;//回旋效果
         attack.InstantShoot(direction);
         attackCounter++;
     }

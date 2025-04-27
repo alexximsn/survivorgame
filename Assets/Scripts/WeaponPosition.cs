@@ -19,4 +19,11 @@ public class WeaponPosition : MonoBehaviour
         Destroy(Weapon.gameObject);
         Weapon = null;
     }
+    public void SetActive(bool isActive)
+    {
+        if (Weapon != null)
+        {
+            Weapon.gameObject.SetActive(isActive);
+        }
+    }
 }

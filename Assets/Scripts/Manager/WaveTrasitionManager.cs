@@ -141,18 +141,12 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
                 value = Random.Range(1, 5);
                 buttonString = "+" + value;
                 break;
-            case Stat.Range:
-                value = Random.Range(1f, 5f);
-                buttonString = "+" + value.ToString();
-                break;
+          
             case Stat.HealthRecoverySpeed:
                 value = Random.Range(1, 10);
                 buttonString = "+" + value.ToString() + "%";
                 break;
-            case Stat.Armor:
-                value = Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "%";
-                break;
+         
             case Stat.Lucky:
                 value = Random.Range(1, 10);
                 buttonString = "+" + value.ToString() + "%";
@@ -161,10 +155,7 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
                 value = Random.Range(1, 10);
                 buttonString = "+" + value.ToString() + "%";
                 break;
-            case Stat.LifeSteal:
-                value = Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "%";
-                break;
+       
             default:
                 return () => Debug.Log("Invalid stat");
 

@@ -10,14 +10,25 @@ public class PlayerController : MonoBehaviour ,IPlayerStatsDependency
      private float MoveSpeed;  
     private Vector2 input;  
     private Vector2 mousePos;
-    
+    [SerializeField] private PlayerWeapons playerWeapons;
     void Start()  
     {  
         rig = GetComponent<Rigidbody2D>();
         
-    }  
+    }
+    private void Update()
+    {
+        HandleWeaponSwitch();
+    }
 
-   private void LateUpdate()
+    private void HandleWeaponSwitch()
+    {
+        if (Input.GetMouseButtonDown(1)) // 鼠标右键
+        {
+            playerWeapons.SwitchWeapon();
+        }
+    }
+    private void LateUpdate()
    { 
         input.x = Input.GetAxisRaw("Horizontal");  
         

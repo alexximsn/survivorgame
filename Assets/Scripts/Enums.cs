@@ -17,12 +17,12 @@ public enum Stat
     CritialPercent,
     Movespeed,
     MaxHealth,
-    Range,
+    //Range,
     HealthRecoverySpeed,
-    Armor,
+    //Armor,
     Lucky,
     Dodge,
-    LifeSteal
+    //LifeSteal
       
 }
 public static class Enums
@@ -32,7 +32,7 @@ public static class Enums
         string formated = "";
         string unformatedString = stat.ToString();
         if (unformatedString.Length <= 0)
-            return "Unvalid Stat Name";
+            return "·Ç·¨×´Ì¬Ãû";
         formated += unformatedString[0];
         for (int i=1;i<unformatedString.Length;i++)
         {

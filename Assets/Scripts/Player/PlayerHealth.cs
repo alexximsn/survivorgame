@@ -102,9 +102,7 @@ public class PlayerHealth : MonoBehaviour,IPlayerStatsDependency
 
         health = maxHealth;
         UpdateUI();
-        armor = playerStatsManager.GetStatValue(Stat.Armor);
-        lifeSteal = playerStatsManager.GetStatValue(Stat.LifeSteal) / 100;
-        dodge = playerStatsManager.GetStatValue(Stat.Dodge);
+        dodge = playerStatsManager.GetStatValue(Stat.Dodge);//闪避
         healthRecoverySpeed = Mathf.Max(.0001f, playerStatsManager.GetStatValue(Stat.HealthRecoverySpeed));
         healthRecoverDuration = 1f / healthRecoverySpeed;
     }

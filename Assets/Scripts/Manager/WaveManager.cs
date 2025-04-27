@@ -6,8 +6,8 @@ using NaughtyAttributes;
 [RequireComponent(typeof(WaveManagerUI))]
 public class WaveManager : MonoBehaviour,IGameStateListener
 {
-    [SerializeField]private Player player;
-    private WaveManagerUI ui;
+    [SerializeField]private Player player;//玩家
+    private WaveManagerUI ui;//ui组件
     [SerializeField] private float waveDuration;//每波的持续时间
     private float timer;//计时器
     private bool isTimerOn;
@@ -30,7 +30,7 @@ public class WaveManager : MonoBehaviour,IGameStateListener
     {
         if (!isTimerOn)
             return;
-        if (timer < waveDuration)
+        if (timer < waveDuration)//没到截至时间
         {
             ManageCurrentWave();
             string timerString = ((int)(waveDuration - timer)).ToString();
@@ -51,7 +51,7 @@ public class WaveManager : MonoBehaviour,IGameStateListener
         {
             ui.UpdateTimerText("");
             ui.UpdateWaveText("Stage Completed");
-            GameManager.instance.SetGameState(GameState.STAGECOMPLETE);
+            GameManager.instance.SetGameState(GameState.STAGECOMPLETE);//所有波都完成，显示
 
         }
            
@@ -66,7 +66,7 @@ public class WaveManager : MonoBehaviour,IGameStateListener
     }
     private void StartWave(int waveIndex)
     {
-        ui.UpdateWaveText("WAVE" + (currentWaveIndex + 1) + "/" + wave.Length);
+        ui.UpdateWaveText("WAVE" + (currentWaveIndex + 1) + "/" + wave.Length);//更新这是第几波
         localCounters.Clear();
         foreach (WaveSegment segment in wave[waveIndex].segments)
             localCounters.Add(0
@@ -75,13 +75,13 @@ public class WaveManager : MonoBehaviour,IGameStateListener
         timer = 0;
         isTimerOn = true;
     }
-    private void DefeatAllEnemies()
+    private void DefeatAllEnemies()//循环遍历所有敌人的对象
     {
         foreach (Enemy enemy in transform.GetComponentsInChildren<Enemy>())
-            enemy.PassAwayAfterWave();
+            enemy.PassAwayAfterWave();//摧毁力子
     }
    
-    private void ManageCurrentWave()
+    private void ManageCurrentWave()//管理当前波
     {
         Wave currentWave = wave[currentWaveIndex];
         for(int i=0;i<currentWave.segments.Count;i++)
@@ -105,7 +105,7 @@ public class WaveManager : MonoBehaviour,IGameStateListener
         }
         timer += Time.deltaTime;
     }
-    private Vector2 GetSpawnPosition()
+    private Vector2 GetSpawnPosition()//计算敌人生成的位置
     {
         Vector2 direction = Random.onUnitSphere;
         Vector2 offset = direction.normalized *Random.Range(6, 10);
@@ -139,5 +139,5 @@ public struct WaveSegment
     [MinMaxSlider(0, 100)] public Vector2 tStartEnd;
     public float spawnFrequency;
     public GameObject prefab;
-    public bool spawnOnce;
+    public bool spawnOnce;//生成敌人仅一次
 }

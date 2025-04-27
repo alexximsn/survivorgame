@@ -111,8 +111,7 @@ public class Lasergun : Gunweapon
     public override void UpdateStats(PlayerStatsManager stats)
     {
         base.ConfigureStats();// 关键修复：调用基类方法更新 damage 等属性
-        range = WeaponData.GetStatValue(Stat.Range) * (1 + stats.GetStatValue(Stat.Range) / 100);
         damage = Mathf.RoundToInt(damage * (1 + stats.GetStatValue(Stat.Attack) / 100f));
-        //damageInterval = 1f / calculatedStats[Stat.AttackSpeed];
+        
     }
 }

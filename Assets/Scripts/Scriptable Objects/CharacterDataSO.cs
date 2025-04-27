@@ -16,12 +16,12 @@ public class CharacterDataSO : ScriptableObject
     [SerializeField] private float critialPercent;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float maxHealth;
-    [SerializeField] private float range;
+   
     [SerializeField] private float healthRecoverySpeed;
-    [SerializeField] private float armor;
+
     [SerializeField] private float luck;
     [SerializeField] private float dodge;
-    [SerializeField] private float lifeSteal;
+ 
    
     public Dictionary<Stat, float> BaseStats
     {
@@ -35,12 +35,12 @@ public class CharacterDataSO : ScriptableObject
                   {Stat.CritialPercent,critialPercent},
                    {Stat.Movespeed,moveSpeed},
                     {Stat.MaxHealth,maxHealth},
-                     {Stat.Range,range},
+                   
                       {Stat.HealthRecoverySpeed,healthRecoverySpeed},
-                       {Stat.Armor,armor},
+                 
                         {Stat.Lucky,luck},
                         {Stat.Dodge, dodge},
-                        {Stat.LifeSteal,lifeSteal},
+                      
                    
             };
         }

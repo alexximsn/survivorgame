@@ -6,9 +6,14 @@ using UnityEngine;
 public class PlayerWeapons : MonoBehaviour
 {
     [SerializeField] private WeaponPosition[] weaponPositions;
+
+    private int currentWeaponIndex = 0;
     void Start()
     {
-        
+        for (int i = 0; i < weaponPositions.Length; i++)
+        {
+            weaponPositions[i].gameObject.SetActive(i == currentWeaponIndex);
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +68,17 @@ public class PlayerWeapons : MonoBehaviour
             weapona.Add(weaponPosition.Weapon);
         }
         return weapona.ToArray();
+    }
+    public void SwitchWeapon()
+    {
+        // 隐藏当前武器
+        weaponPositions[currentWeaponIndex].gameObject.SetActive(false);
+
+        // 计算下一个武器索引（循环）
+        currentWeaponIndex = (currentWeaponIndex + 1) % weaponPositions.Length;
+
+        // 显示新武器
+        weaponPositions[currentWeaponIndex].gameObject.SetActive(true);
     }
 
 }

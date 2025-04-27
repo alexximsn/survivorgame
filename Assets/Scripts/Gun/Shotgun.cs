@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 
 public class Shotgun : Gunweapon {
     [Header("Shotgun Settings")]
-    [SerializeField] private int baseBulletNum;
+    [SerializeField] private int baseBulletNum;//基础子弹数量
     [SerializeField] private float baseSpreadAngle;
     private int currentBulletNum;
     private float currentSpreadAngle;
@@ -32,7 +32,7 @@ public class Shotgun : Gunweapon {
             GameObject bulletObj = ObjectPool.Instance.GetObject(bulletPrefab.gameObject);
             if (bulletObj == null)
             {
-                Debug.LogError("Failed to get bullet from pool!");
+                Debug.LogError("没有从对象池得到子弹");
                 continue;
             }
 
@@ -44,10 +44,10 @@ public class Shotgun : Gunweapon {
             Bullet bullet = bulletObj.GetComponent<Bullet>();
             bullet.Configure(this);
 
-            float angleStep = currentSpreadAngle / (currentBulletNum - 1);
-            float angleOffset = -currentSpreadAngle / 2 + angleStep * i;
+            float angleStep = currentSpreadAngle / (currentBulletNum - 1);//角度增量
+            float angleOffset = -currentSpreadAngle / 2 + angleStep * i;//子弹偏移角
             Vector2 spreadDir = Quaternion.AngleAxis(angleOffset, Vector3.forward) * shootDirection;
-            bullet.Shoot(finalDamage, spreadDir.normalized, isCritical);
+            bullet.Shoot(finalDamage, spreadDir.normalized, isCritical);//发射
         }
         onButtetShot?.Invoke();
         PlayAttackSound();

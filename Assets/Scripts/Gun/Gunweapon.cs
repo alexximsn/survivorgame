@@ -9,17 +9,17 @@ using UnityEngine.Windows;
 using Input = UnityEngine.Input;
 public class Gunweapon : weapons
 {
-    [SerializeField] protected Transform shootingPoint;
-    [SerializeField] protected GameObject bulletPrefab;
-    protected Vector2 mousePos;
-    protected Vector2 direction;
-    protected float flipY;
+    [SerializeField] protected Transform shootingPoint;//发射点
+    [SerializeField] protected GameObject bulletPrefab;//子弹
+    protected Vector2 mousePos;//鼠标位置
+    protected Vector2 direction;//设计方向
+    protected float flipY;//翻转
  
-    protected float rotationSpeed = 10f;
+    protected float rotationSpeed = 10f;//旋转速度
 
    
     public static Action onButtetShot;//相机震动
-    private enum gunState { idle, SHOOT };
+    private enum gunState { idle, SHOOT };//动画
 
     protected virtual void Start()
     {
@@ -31,10 +31,10 @@ public class Gunweapon : weapons
 
     protected virtual void Update()
     {
-        HandleWeaponFlip();
-        GunAnim();
-        ManageShooting();
-        SmoothRotateTowardsMouse();
+        HandleWeaponFlip();//武器旋转
+        GunAnim();//动画
+        ManageShooting();//设计逻辑
+        SmoothRotateTowardsMouse();//平滑转向
     }
     void GunAnim()
     {
@@ -59,10 +59,10 @@ public class Gunweapon : weapons
     }
     private void SmoothRotateTowardsMouse()
     {
-        direction = (mousePos - new Vector2(transform.position.x, transform.position.y)).normalized;
-        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        direction = (mousePos - new Vector2(transform.position.x, transform.position.y)).normalized;//攻击方向
+        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;//目标角度
+        Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);//生成目标旋转
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);//平滑旋转到目标角度
     } 
     private void ManageShooting()
     {
@@ -99,6 +99,6 @@ public class Gunweapon : weapons
         attackDelay/=1+(playerStatsManager.GetStatValue(Stat.AttackSpeed)/100);
         critialChance = Mathf.RoundToInt(critialChance * (1 + playerStatsManager.GetStatValue(Stat.CritialChange) / 100));
         critialPercent += playerStatsManager.GetStatValue(Stat.CritialPercent);
-        range += playerStatsManager.GetStatValue(Stat.Range) / 10;
+ 
     }
 }

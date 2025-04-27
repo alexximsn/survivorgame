@@ -10,9 +10,7 @@ public static class WeaponStatsCalculator
         Dictionary<Stat, float> calculatedStats = new Dictionary<Stat, float>();
         foreach (KeyValuePair<Stat, float> kvp in weaponData.BaseStats)
         {
-            if (weaponData.Prefab.GetType() == typeof(MeleeWeapon) && kvp.Key == Stat.Range)
-                calculatedStats.Add(kvp.Key, kvp.Value );
-            else
+            
                 calculatedStats.Add(kvp.Key, kvp.Value * multiplier);
         }
         return calculatedStats;

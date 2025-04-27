@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+//攻击、伤害计算、敌人检测、状态更新
 public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
 {
     [field: SerializeField] public WeaponDataSO WeaponData { get; private set; }
@@ -18,10 +19,10 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
     
     [SerializeField] protected Animator animator;
   
-    [SerializeField] protected float attackDelay;
-    protected float attackTimer;
-    protected int critialChance;
-    protected float critialPercent;
+    [SerializeField] protected float attackDelay;//攻击延迟
+    protected float attackTimer;//计时器
+    protected int critialChance;//暴击几率
+    protected float critialPercent;//暴击百分比
     private AudioSource audioSource;//枪声
     private void Awake()
     {
@@ -34,7 +35,7 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
     {
         if (!AudioManager.instance.IsSFXOn)
             return;
-        audioSource.pitch = UnityEngine.Random.Range(.95f, 1.05f);
+        audioSource.pitch = UnityEngine.Random.Range(.95f, 1.05f);//随机音调
         audioSource.Play();
     }
     void Start()
@@ -66,7 +67,7 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
     protected int GetDamage(out bool isCritialHit)
     {
         isCritialHit = false;
-        if(Random.Range(0,101)<=critialChance)//现在设置成50%
+        if(Random.Range(0,101)<=critialChance)//暴击几率判断
         {
             isCritialHit = true;
             return Mathf.RoundToInt(damage * critialPercent);
@@ -93,7 +94,7 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
         critialChance = Mathf.RoundToInt(calculatedStats[Stat.CritialChange] );
         critialPercent = calculatedStats[Stat.CritialPercent] ;
       
-        range = calculatedStats[Stat.Range] ;
+    
     }
 
     internal void Update()
