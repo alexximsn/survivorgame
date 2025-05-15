@@ -29,23 +29,13 @@ public class ShopManager : MonoBehaviour,IGameStateListener
         ShopItemContainer.onPurchased -= ItemPurchasedCallback;
         CurrencyManager.onUpdated -= CurrencyUpdatedCallback;
     }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
     public void GameStateChangedCallback(GameState gameState)
     {
         if (gameState == GameState.SHOP)
         {
             Configure();
             UpdateRerollVisuals();
-        }
-           
+        }     
     }
     private void Configure()
     {
@@ -119,5 +109,4 @@ public class ShopManager : MonoBehaviour,IGameStateListener
         Destroy(container.gameObject);
         onItemPurchased?.Invoke();
     }
-   
 }

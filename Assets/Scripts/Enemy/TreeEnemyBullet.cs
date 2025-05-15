@@ -14,8 +14,13 @@ public class TreeEnemyBullet : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
-        LeanTween.delayedCall(gameObject, 5, () => rangeEnemyAttack.ReleaseBullet(this));
-      
+        LeanTween.delayedCall(gameObject, 5f, () => {
+            if (gameObject.activeInHierarchy)
+            {
+                ObjectPool.Instance.PushObject(gameObject);
+            }
+        });
+
     }
    
     public void Configure(RangeEnemyAttack rangeEnemyAttack)
@@ -30,14 +35,12 @@ public class TreeEnemyBullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.TryGetComponent(out Player player))
+        if (collider.TryGetComponent(out Player player))
         {
-            LeanTween.cancel(gameObject);
-           
-            player.TakeDamage(damage);
-            this.collider.enabled = false;
-            rangeEnemyAttack.ReleaseBullet(this);
-        } 
+            // 命中玩家时立即回收
+            LeanTween.cancel(gameObject); // 取消延迟回收
+            ObjectPool.Instance.PushObject(gameObject);
+        }
     }
     public void Reload()
     {

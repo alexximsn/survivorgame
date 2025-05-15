@@ -8,16 +8,10 @@ using TMPro;
 [RequireComponent(typeof(EnemyMovement))]
 public class Meleeenemy : Enemy
 {
-  
-   
-  
     [SerializeField] private int damage;
     [SerializeField] private float attackFrequency;
     private float attackDelay;
     private float attackTimer;
-
-
-
     protected override void Start()
     {
         base.Start();
@@ -40,8 +34,7 @@ public class Meleeenemy : Enemy
         attackTimer += Time.deltaTime;//达到攻击延迟
     }
     private void Attack()
-    {
-        
+    {  
         attackTimer = 0;
         player.TakeDamage(damage);
     }
@@ -51,8 +44,6 @@ public class Meleeenemy : Enemy
         if (distanceToPlayer <= playerDetectionRadius)
             Attack();//小于检测半径，攻击
         else
-            movement.FollowPlayer();
-        
+            movement.FollowPlayer();   
     }
-    
 }

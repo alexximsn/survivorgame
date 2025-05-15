@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
     public static Action onGamePaused;
     public static Action onGameResumed;
+    public static GameState CurrentGameState { get; private set; }
     private void Awake()
     {
         if (instance == null)
@@ -27,13 +27,13 @@ public class GameManager : MonoBehaviour
     public void StartShop()=> SetGameState(GameState.SHOP);
     public void SetGameState(GameState gameState)
     {
+        CurrentGameState = gameState;
         IEnumerable<IGameStateListener> gameStateListeners = 
             FindObjectsByType<MonoBehaviour>
             (FindObjectsSortMode.None).OfType<IGameStateListener>();
         foreach (IGameStateListener gameStateListener in 
             gameStateListeners)
-            gameStateListener.GameStateChangedCallback(gameState);
-      
+            gameStateListener.GameStateChangedCallback(gameState);  
     }
   
     public void WaveCompletedCallback()

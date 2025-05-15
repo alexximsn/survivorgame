@@ -8,11 +8,10 @@ public class Lasergun : Gunweapon
     [SerializeField] private LineRenderer laser;
     private GameObject hitEffect;
     [SerializeField] private float damageInterval = 0.2f;
-
+    [SerializeField] protected float range;
     private bool isShooting;
     private float lastDamageTime;
   
-
     protected override void Start()
     {
         base.Start();

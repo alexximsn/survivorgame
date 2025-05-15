@@ -11,11 +11,6 @@ public class Explosion : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    void Start()
-    {
-        
-    }
-   
     void Update()
     {
         info = animator.GetCurrentAnimatorStateInfo(0);
@@ -23,6 +18,5 @@ public class Explosion : MonoBehaviour
         {
             ObjectPool.Instance.PushObject(gameObject);
         }
-
     }
 }

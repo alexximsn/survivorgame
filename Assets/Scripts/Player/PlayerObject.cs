@@ -11,17 +11,10 @@ public class PlayerObject : MonoBehaviour
     {
         playerStatsManager = GetComponent<PlayerStatsManager>();
     }
-
     void Start()
     {
         foreach (ObjectDataSO objectData in Objects)
             playerStatsManager.AddObject(objectData.BaseStats);
-    }
-
-  
-    void Update()
-    {
-        
     }
     public void AddObject(ObjectDataSO objectData)
     {

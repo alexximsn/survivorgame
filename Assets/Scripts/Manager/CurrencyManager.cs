@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Tabsil.Sijil;
+using Tabsil.SaverManager;
 public class CurrencyManager : MonoBehaviour,IWantToBeSaved
 {
     public static CurrencyManager instance;
@@ -105,7 +105,7 @@ public class CurrencyManager : MonoBehaviour,IWantToBeSaved
 
     public void Load()
     {
-        if (Sijil.TryLoad(this, premiumCurrencyKey, out object premiumCurrencyValue))
+        if (SaverManager.TryLoad(this, premiumCurrencyKey, out object premiumCurrencyValue))
             AddPremiumCurrency((int)premiumCurrencyValue,false);
         else
             AddPremiumCurrency(100,false);
@@ -113,6 +113,6 @@ public class CurrencyManager : MonoBehaviour,IWantToBeSaved
 
     public void Save()
     {
-        Sijil.Save(this,premiumCurrencyKey,PremiumCurrency);
+        SaverManager.Save(this,premiumCurrencyKey,PremiumCurrency);
     }
 }

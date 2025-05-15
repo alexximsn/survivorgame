@@ -9,16 +9,6 @@ public abstract  class DroppableCurrency : MonoBehaviour,ICollectable
     {
         collected = false;
     }
-
-    void Start()
-    {
-    }
-
-
-    void Update()
-    {
-
-    }
     public void Collect(Player player)
     {
         if (collected)

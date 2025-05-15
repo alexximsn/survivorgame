@@ -33,8 +33,7 @@ public class WeaponSelectionContainer : MonoBehaviour
         StatContainersManager.GeneratStatContainers(calculatedStats, statContainersParent);
         
     }
-
-    public void Select()
+public void Select()
     {
         LeanTween.cancel(gameObject);
         LeanTween.scale(gameObject, Vector3.one * 1.075f, .3f).setEase(LeanTweenType.easeInOutSine);

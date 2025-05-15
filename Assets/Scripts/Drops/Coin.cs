@@ -8,5 +8,6 @@ public class Coin : DroppableCurrency {
     protected override void Collected()
     {
         onCollected?.Invoke(this);
+        ObjectPool.Instance.PushObject(gameObject);
     }
 }

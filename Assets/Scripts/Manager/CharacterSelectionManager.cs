@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
-using Tabsil.Sijil;
+using Tabsil.SaverManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -107,10 +107,10 @@ public class CharacterSelectionManager : MonoBehaviour, IWantToBeSaved
         for (int i = 0; i < characterDatas.Length; i++)
             unlockedStates.Add(i == 0);
 
-        if (Sijil.TryLoad(this, unlockedStatesKey, out object unlockedStatesObject))
+        if (SaverManager.TryLoad(this, unlockedStatesKey, out object unlockedStatesObject))
             unlockedStates = (List<bool>)unlockedStatesObject;
 
-        if (Sijil.TryLoad(this, lastSelectedCharacterKey, out object lastSelectedCharacterObject))
+        if (SaverManager.TryLoad(this, lastSelectedCharacterKey, out object lastSelectedCharacterObject))
             lastSelectedCharacterIndex = (int)lastSelectedCharacterObject;
 
         Initialize();
@@ -120,8 +120,8 @@ public class CharacterSelectionManager : MonoBehaviour, IWantToBeSaved
 
     public void Save()
     {
-        Sijil.Save(this, unlockedStatesKey, unlockedStates);
-        Sijil.Save(this, lastSelectedCharacterKey, lastSelectedCharacterIndex);
+        SaverManager.Save(this, unlockedStatesKey, unlockedStates);
+        SaverManager.Save(this, lastSelectedCharacterKey, lastSelectedCharacterIndex);
     }
 
 }

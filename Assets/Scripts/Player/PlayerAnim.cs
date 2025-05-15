@@ -22,6 +22,6 @@ public class PlayerAnim : MonoBehaviour
     void UpdateAnimation()
     {
         bool isMoving = Mathf.Abs(input.x) > 0 || Mathf.Abs(input.y) > 0;
-        anim.SetBool("IsMoving", isMoving); // 使用更直观的布尔参数
+        anim.SetBool("IsMoving", isMoving); // 
     }
 }

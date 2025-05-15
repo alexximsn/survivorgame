@@ -21,8 +21,7 @@ MonoBehaviour:
   <RecyclePrice>k__BackingField: 10
   <AttackSound>k__BackingField: {fileID: 8300000, guid: 12855e551caf81a448d122d8fae8c767,
     type: 3}
-  attack: 100
+  attack: 5
   attackSpeed: 2
   critialChance: 5
-  critialPercent: 1.5
-  range: 4
+  critialPercent: 10

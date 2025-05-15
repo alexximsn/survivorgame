@@ -37,16 +37,6 @@ public class Player : MonoBehaviour
     {
         CharacterSelectionManager.onCharacterSelected -= CharacterSelectedCallback;
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void TakeDamage(int damage)
     {
       playerHealth.TakeDamage(damage);

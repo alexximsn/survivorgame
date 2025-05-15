@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Tabsil.Sijil;
+using Tabsil.SaverManager;
 using UnityEngine.Networking;
 using System;
 public class SettingManager : MonoBehaviour, IWantToBeSaved
@@ -135,10 +135,10 @@ public class SettingManager : MonoBehaviour, IWantToBeSaved
         sfxState = true;
         musicState = true;
 
-        if (Sijil.TryLoad(this, "sfx", out object sfxStateObject))
+        if (SaverManager.TryLoad(this, "sfx", out object sfxStateObject))
             sfxState = (bool)sfxStateObject;
 
-        if (Sijil.TryLoad(this, "music", out object musicStateObject))
+        if (SaverManager.TryLoad(this, "music", out object musicStateObject))
             musicState = (bool)musicStateObject;
 
         UpdateSFXVisuals();
@@ -148,7 +148,7 @@ public class SettingManager : MonoBehaviour, IWantToBeSaved
 
     public void Save()
     {
-        Sijil.Save(this, "sfx", sfxState);
-        Sijil.Save(this, "music", musicState);
+        SaverManager.Save(this, "sfx", sfxState);
+        SaverManager.Save(this, "music", musicState);
     }
 }

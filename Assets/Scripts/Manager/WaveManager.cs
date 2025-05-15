@@ -42,9 +42,22 @@ public class WaveManager : MonoBehaviour,IGameStateListener
             StartWaveTransition();
         
     }
+
+    private bool CheckForAliveEnemies()//检查当前是否还有活着的敌人
+    {
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        return enemies.Length > 0;
+    }
     private void StartWaveTransition()
     {
         isTimerOn = false;
+        // 新增：检查是否还有存活的敌人
+        bool enemiesAlive = CheckForAliveEnemies();
+        if (enemiesAlive)
+        {
+            GameManager.instance.SetGameState(GameState.GAMEOVER);
+            return;
+        }
         DefeatAllEnemies();
         currentWaveIndex++;
         if (currentWaveIndex >= wave.Length)

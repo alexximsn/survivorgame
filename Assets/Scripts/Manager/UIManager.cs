@@ -80,18 +80,23 @@ public class UIManager : MonoBehaviour,IGameStateListener
                 break;
             case GameState.GAME:
                 ShowPanel(gamePanel);
+                
                 break;
             case GameState.GAMEOVER:
                 ShowPanel(gameoverPanel);
+               
                 break;
             case GameState.STAGECOMPLETE:
                 ShowPanel(stageCompletePanel);
-;               break;
+               
+                break;
             case GameState.WAVETRANSITION:
                 ShowPanel(waveTransitionPanel);
+              
                 break;
             case GameState.SHOP:
                 ShowPanel(shopPanel);
+               
                 break;
         }
     }

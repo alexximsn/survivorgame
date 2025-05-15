@@ -50,6 +50,9 @@ public class Playerlever : MonoBehaviour
         levelEarnedThisWave++;
         currentXp = 0;
         UpdateRequiredXp();
+
+        // 触发宝箱计数增加
+        WaveTrasitionManager.instance.ChestCollectedCallback();
     }
     public bool HasLeveledUp()
     {

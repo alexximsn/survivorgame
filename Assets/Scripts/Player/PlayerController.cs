@@ -13,14 +13,13 @@ public class PlayerController : MonoBehaviour ,IPlayerStatsDependency
     [SerializeField] private PlayerWeapons playerWeapons;
     void Start()  
     {  
-        rig = GetComponent<Rigidbody2D>();
-        
+        rig = GetComponent<Rigidbody2D>();   
     }
     private void Update()
     {
+
         HandleWeaponSwitch();
     }
-
     private void HandleWeaponSwitch()
     {
         if (Input.GetMouseButtonDown(1)) // 鼠标右键

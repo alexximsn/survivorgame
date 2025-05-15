@@ -8,9 +8,7 @@ public class Drops : DroppableCurrency
     protected override void Collected()
     {
         onCollected?.Invoke(this);
-           
+        ObjectPool.Instance.PushObject(gameObject);
     }
 
-   
-   
 }

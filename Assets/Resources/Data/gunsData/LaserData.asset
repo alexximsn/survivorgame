@@ -24,5 +24,4 @@ MonoBehaviour:
   attack: 10
   attackSpeed: 1
   critialChance: 1
-  critialPercent: 1
-  range: 5
+  critialPercent: 5

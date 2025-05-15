@@ -11,8 +11,6 @@ public class PlayerHealth : MonoBehaviour,IPlayerStatsDependency
     //设置最大生命值、当前生命值、生命值条、显示文字
     private int maxHealth;
     private float health;
-    private float armor;
-    private float lifeSteal;
     private float dodge;
     private float healthRecoverySpeed;
     private float healthRecoverValue;
@@ -31,12 +29,11 @@ public class PlayerHealth : MonoBehaviour,IPlayerStatsDependency
     {
         Enemy.onDamageTaken -= EnemyTookDamageCallback;
     }
-
     private void EnemyTookDamageCallback(int damage, Vector2 enemyPos, bool isCriticalHit)
     {
         if (health >= maxHealth)
             return;
-        float lifeStealValue = damage * lifeSteal;
+        float lifeStealValue = damage;
         float healthToAdd = Math.Min(lifeStealValue, maxHealth - health);
         health += healthToAdd;
         UpdateUI();
@@ -60,7 +57,6 @@ public class PlayerHealth : MonoBehaviour,IPlayerStatsDependency
             health += healthToAdd;
             UpdateUI();
         }
-    
     }
     //1.计算实际受到的伤害（防止生命值为负）2.减少3.更新UI4.检测死亡
     public void TakeDamage(int damage)
@@ -70,7 +66,7 @@ public class PlayerHealth : MonoBehaviour,IPlayerStatsDependency
             onAttackDodged ?.Invoke(transform.position);
             return;
         }
-        float realDamage = damage * Mathf.Clamp(1 - (armor / 1000), 0, 10000);
+        float realDamage = damage;
         realDamage=Mathf.Min(damage,health);
         health-=realDamage;
         UpdateUI();

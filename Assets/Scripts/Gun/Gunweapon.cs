@@ -14,19 +14,14 @@ public class Gunweapon : weapons
     protected Vector2 mousePos;//鼠标位置
     protected Vector2 direction;//设计方向
     protected float flipY;//翻转
- 
     protected float rotationSpeed = 10f;//旋转速度
-
-   
     public static Action onButtetShot;//相机震动
     private enum gunState { idle, SHOOT };//动画
 
     protected virtual void Start()
     {
-        
         animator = GetComponent<Animator>();
         flipY = transform.localScale.y;
-       
     }
 
     protected virtual void Update()
@@ -67,7 +62,6 @@ public class Gunweapon : weapons
     private void ManageShooting()
     {
         attackTimer += Time.deltaTime;
-
         // 检测鼠标左键按下，并且攻击计时器达到攻击延迟  
         if (UnityEngine.Input.GetMouseButton(0) && attackTimer >= attackDelay)
         {
@@ -77,17 +71,15 @@ public class Gunweapon : weapons
     }
     protected virtual void Shoot()
     {  int damage = GetDamage(out bool isCriticalHit);
-    direction = (mousePos - (Vector2) transform.position).normalized;
+       direction = (mousePos - (Vector2) transform.position).normalized;
 
         // 从对象池获取子弹
         GameObject bulletObj = ObjectPool.Instance.GetObject(bulletPrefab.gameObject);
         bulletObj.transform.position = shootingPoint.position;
         bulletObj.transform.rotation = Quaternion.identity;
-
-
         Bullet bulletInstance = bulletObj.GetComponent<Bullet>();
-       bulletInstance.Configure(this);
-          bulletInstance.Shoot(damage, direction, isCriticalHit);
+        bulletInstance.Configure(this);
+        bulletInstance.Shoot(damage, direction, isCriticalHit);
         onButtetShot?.Invoke();
         PlayAttackSound();
     }

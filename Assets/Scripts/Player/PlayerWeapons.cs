@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerWeapons : MonoBehaviour
 {
     [SerializeField] private WeaponPosition[] weaponPositions;
-
     private int currentWeaponIndex = 0;
     void Start()
     {
@@ -15,13 +14,6 @@ public class PlayerWeapons : MonoBehaviour
             weaponPositions[i].gameObject.SetActive(i == currentWeaponIndex);
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public bool TryAddWeapon(WeaponDataSO weapon, int level)
     {
         for (int i = 0; i < weaponPositions.Length; i++)
@@ -37,7 +29,6 @@ public class PlayerWeapons : MonoBehaviour
             
                 return true;
             }
-        
     }
 
         return false;
@@ -54,7 +45,6 @@ public class PlayerWeapons : MonoBehaviour
             return;
         }
     }
-
     public weapons[] GetWeapons()
     {
         List<weapons> weapona = new List<weapons>();
@@ -62,9 +52,7 @@ public class PlayerWeapons : MonoBehaviour
         {
             if (weaponPosition.Weapon == null)
                 weapona.Add(null);
-         
             else
-
             weapona.Add(weaponPosition.Weapon);
         }
         return weapona.ToArray();
@@ -73,12 +61,9 @@ public class PlayerWeapons : MonoBehaviour
     {
         // 隐藏当前武器
         weaponPositions[currentWeaponIndex].gameObject.SetActive(false);
-
         // 计算下一个武器索引（循环）
         currentWeaponIndex = (currentWeaponIndex + 1) % weaponPositions.Length;
-
         // 显示新武器
         weaponPositions[currentWeaponIndex].gameObject.SetActive(true);
     }
-
 }

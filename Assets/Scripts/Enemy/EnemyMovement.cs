@@ -17,11 +17,6 @@ public class EnemyMovement : MonoBehaviour
     }
     void Update()
     {
-
-        //  if(player!=null)
-        //  FollowPlayer();  
-      
-
     }
    
     public void StorePlayer(Player player)
@@ -37,7 +32,4 @@ public class EnemyMovement : MonoBehaviour
         transform.position = targetPosition;
         IsMoving = true;
     }
-
-    
-
 }

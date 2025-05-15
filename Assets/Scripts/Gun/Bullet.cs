@@ -22,16 +22,6 @@ public class Bullet : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
-    
-
-    }
-    void Start()
-    {  
-    }
-
-    // Update is called once per frame
-    void Update()
-    {     
     }
     public void Shoot(int damage,Vector2 direction,bool isCriticalHit)
     {
@@ -42,7 +32,6 @@ public class Bullet : MonoBehaviour
         this.isCriticalHit = isCriticalHit;
         transform.right = direction;
         rig.velocity = direction * moveSpeed;
-     
     }
     public void Configure(weapons weapon)
     {

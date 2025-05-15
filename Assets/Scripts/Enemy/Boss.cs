@@ -10,6 +10,7 @@ public class Boss : Enemy
     [SerializeField] private Slider healthBar;//生命值
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private Animator animator;//动画
+    //private EnemyMovement movement;
     enum State { None,Idle,Moving,Attacking}
 
     private State state;
@@ -22,6 +23,8 @@ public class Boss : Enemy
 
     [SerializeField] private float movespeed;
     private int attackCounter;
+
+
     private void Awake()
     {
         state = State.None;
@@ -48,8 +51,6 @@ public class Boss : Enemy
         base.Start();
         attack = GetComponent<RangeEnemyAttack>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         ManageStates();
@@ -80,7 +81,7 @@ public class Boss : Enemy
     }
     private void ManageAttackingState()
     {
-        if (attackCounter >= 8) // 示例：攻击3次后停止
+        if (attackCounter >= 8) 
         {
             SetIdleState();
         }
@@ -89,16 +90,21 @@ public class Boss : Enemy
     private void StartMovingState()
     {
         state = State.Moving;
-        targetPosition = GetRandomPosition();
+       
 
         animator.Play("BossMove");
     }
 
     private void ManageMovingState()
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, movespeed * Time.deltaTime);
-        if (Vector2.Distance(transform.position,targetPosition)<.01f)
+        movement.FollowPlayer();
+
+        // 根据距离或其他条件触发攻击（示例逻辑）
+        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        if (distanceToPlayer <= playerDetectionRadius)
+        {
             StartAttackingState();
+        }
     }
 
     private void StartAttackingState()
@@ -126,14 +132,6 @@ public class Boss : Enemy
     {
         healthBar.value = (float)health / maxHealth;
         healthText.text = $"{health}/{maxHealth}";
-    }
-
-    private Vector2 GetRandomPosition()//在设定的距离里随机移动
-    {
-        Vector2 targetPosition = Vector2.zero;
-        targetPosition.x =Random.Range( -10f, 10f);
-        targetPosition.y = Random.Range( -4f, 4f);
-        return targetPosition;
     }
     private void Attack()
     {

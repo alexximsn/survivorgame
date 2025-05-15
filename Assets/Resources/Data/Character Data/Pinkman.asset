@@ -18,15 +18,12 @@ MonoBehaviour:
   <PurchasePrice>k__BackingField: 0
   <AnimOverrideController>k__BackingField: {fileID: 22100000, guid: b053b038b5577644f81ae20f8de97608,
     type: 2}
-  attack: 10
+  attack: 2
   attackSpeed: 1
-  critialChance: 1
+  critialChance: 30
   critialPercent: 1
-  moveSpeed: 1
-  maxHealth: 1
-  range: 1
-  healthRecoverySpeed: 1
-  armor: 1
-  luck: 1
-  dodge: 10
-  lifeSteal: 1
+  moveSpeed: 5
+  maxHealth: 10
+  healthRecoverySpeed: 5
+  luck: 50
+  dodge: 20

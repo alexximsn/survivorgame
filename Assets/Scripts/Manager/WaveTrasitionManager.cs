@@ -10,9 +10,9 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
 {
     public static WaveTrasitionManager instance;
     [SerializeField] private PlayerObject playerObjects;
-    [SerializeField] private UpgradeContainer[] upgrateContainers;
+   
     [SerializeField] private PlayerStatsManager playerStatsManager;
-    [SerializeField] private GameObject upgradeContainersParent;
+
     private int chestsCollected;
 
     [SerializeField] private ChestObjectContainer chestContainerPrefab;
@@ -26,23 +26,11 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
             Destroy(gameObject);
         Chest.onCollected += ChestCollectedCallback;
     }
-
-    
-
     private void OnDestroy()
     {
         Chest.onCollected -= ChestCollectedCallback;
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
     public void GameStateChangedCallback(GameState gameState)
     {
        switch(gameState)
@@ -58,13 +46,14 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
         if (chestsCollected > 0)
             ShowObject();
         else
-            ConfigureUpgradeContainers();
+       
+            GameManager.instance.WaveCompletedCallback(); // 直接跳转到下一阶段
 
     }
     private void ShowObject()
     {
         chestsCollected--;
-        upgradeContainersParent.SetActive(false);
+      
         ObjectDataSO[] objectDatas = ResoursesManager.Objects;
         ObjectDataSO randomObjectData= objectDatas[Random.Range(0, objectDatas.Length)];
         ChestObjectContainer containerInstance = Instantiate(chestContainerPrefab, chestContainerParent);
@@ -83,88 +72,7 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
         CurrencyManager.instance.AddCurrency(objectToRecycle.RecyclePrice);
         TryOpenChest();
     }
-    [Button]
-    private void ConfigureUpgradeContainers()
-    {
-        upgradeContainersParent.SetActive(true);
-        for (int i = 0; i < upgrateContainers.Length; i++)
-        {
-
-            int randomIndex = Random.Range(0, Enum.GetValues(typeof(Stat)).Length);
-            Stat stat = (Stat)Enum.GetValues(typeof(Stat)).GetValue(randomIndex);
-            Sprite upgradeSprite = ResoursesManager.GetStatIcon(stat);
-            string randomStatString = Enums.FormatStatName(stat);
-            string buttonString;
-            Action action = GetActionToPerform(stat, out buttonString);
-            upgrateContainers[i].Configure(upgradeSprite, randomStatString, buttonString);
-
-            upgrateContainers[i].Button.onClick.RemoveAllListeners();
-            upgrateContainers[i].Button.onClick.AddListener(() => action?.Invoke());
-            upgrateContainers[i].Button.onClick.AddListener(() => BonusSelectedCallback());
-        }
-
-    }
-    private void BonusSelectedCallback()
-    {
-        GameManager.instance.WaveCompletedCallback();
-
-    }
-    private Action GetActionToPerform(Stat stat,out string buttonString)
-    {
-        buttonString = "";
-        float value;
-       
-       
-        switch (stat)
-        {
-            case Stat.Attack:
-                value = Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "%";
-                break;
-            case Stat.AttackSpeed:
-                value = Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "%";
-                break;
-            case Stat.CritialChange:
-                value = Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "%";
-                break;
-            case Stat.CritialPercent:
-                value = Random.Range(1f, 2f);
-                buttonString = "+" + value.ToString("F2") + "x";
-                break;
-            case Stat.Movespeed:
-                value = Random.Range(1, 5);
-                buttonString = "+" + value.ToString() + "%";
-                break;
-            case Stat.MaxHealth:
-                value = Random.Range(1, 5);
-                buttonString = "+" + value;
-                break;
-          
-            case Stat.HealthRecoverySpeed:
-                value = Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "%";
-                break;
-         
-            case Stat.Lucky:
-                value = Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "%";
-                break;
-            case Stat.Dodge:
-                value = Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "%";
-                break;
-       
-            default:
-                return () => Debug.Log("Invalid stat");
-
-        }
-        //buttonString=Enums.FormatStatName(stat)+"\n"+buttonString;
-        return () => playerStatsManager.AddPlayerStat(stat,value);
-    }
-    
-    private void ChestCollectedCallback()
+    public void ChestCollectedCallback()
     {
         chestsCollected++;
     }

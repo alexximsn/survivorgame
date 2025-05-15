@@ -30,8 +30,6 @@ public class WeaponDataSO : ScriptableObject
                 {Stat.AttackSpeed,attackSpeed},
                  {Stat.CritialChange,critialChance},
                   {Stat.CritialPercent,critialPercent},             
-                    
-               
             };
         }
         private set { }

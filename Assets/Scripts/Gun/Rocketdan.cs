@@ -9,7 +9,6 @@ public class Rocketdan : Gunweapon
     [SerializeField] private float baseSpreadAngle;
     private int currentRocketNum;
     private float currentSpreadAngle;
-
     private enum ShotgunState { Idle, Shoot }
 
     protected override void Start()
@@ -18,8 +17,6 @@ public class Rocketdan : Gunweapon
         currentRocketNum = baseRocketNum;
         currentSpreadAngle = baseSpreadAngle;
     }
-
-
     protected override void Shoot()
     {
         bool isCritical;

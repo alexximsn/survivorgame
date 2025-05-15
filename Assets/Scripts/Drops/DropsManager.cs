@@ -9,8 +9,7 @@ public class DropsManager : MonoBehaviour, IPlayerStatsDependency
     [SerializeField] private Drops cherries;
     [SerializeField] private Coin coinPrefab;
     [SerializeField] private Chest chestPrefab;
-    private ObjectPool<Drops> cherriesPool;
-    private ObjectPool<Coin> coinPool;
+    
     private float luckValue;
     [SerializeField] [Range(0,100)] private int cashDropChance;
     [SerializeField] [Range(0, 100)] private int chestDropChance;
@@ -18,8 +17,7 @@ public class DropsManager : MonoBehaviour, IPlayerStatsDependency
     {
         Enemy.onPassedAway += EnemyPassedAwayCallback;
         Enemy.onBossPassedAway += BossEnemyPassedAwayCallback;
-        Coin.onCollected += ReleaseCoin;
-        Drops.onCollected += Releasecherries;
+      
     }
 
     private void BossEnemyPassedAwayCallback(Vector2 bossPosition)
@@ -31,53 +29,15 @@ public class DropsManager : MonoBehaviour, IPlayerStatsDependency
     {
         Enemy.onPassedAway -= EnemyPassedAwayCallback;
         Enemy.onBossPassedAway -= BossEnemyPassedAwayCallback;
-        Coin.onCollected -= ReleaseCoin;
-        Drops.onCollected -= Releasecherries;
+       
     }
 
     void Start()
     {
-        cherriesPool = new ObjectPool<Drops>(cherriesCreateFunction, cherriesActionOnGet, cherriesActionOnRelease, cherriesActionOnDestroy);
-        coinPool = new ObjectPool<Coin>(coinCreateFunction, coinActionOnGet, coinActionOnRelease, coinActionOnDestroy);
-    }
-
-    private Drops cherriesCreateFunction()
-    {
-        Drops bulletInstance = Instantiate(cherries, transform);
        
-        return bulletInstance;
     }
-    private void cherriesActionOnGet(Drops drops)
-    {
-        
-        drops.gameObject.SetActive(true);
-    }
-    private void cherriesActionOnRelease(Drops drops)
-    {
-        drops.gameObject.SetActive(false);
-    }
-    private void cherriesActionOnDestroy(Drops drops)
-    {
-        Destroy(drops.gameObject);
-    }
-    private Coin coinCreateFunction()
-    {
-        Coin bulletInstance = Instantiate(coinPrefab, transform);
-        return bulletInstance;
-    }
-    private void coinActionOnGet(Coin coin)
-    {
 
-        coin.gameObject.SetActive(true);
-    }
-    private void coinActionOnRelease(Coin coin)
-    {
-        coin.gameObject.SetActive(false);
-    }
-    private void coinActionOnDestroy(Coin coin)
-    {
-        Destroy(coin.gameObject);
-    }
+   
     void Update()
     {
         
@@ -85,9 +45,13 @@ public class DropsManager : MonoBehaviour, IPlayerStatsDependency
     private void EnemyPassedAwayCallback(Vector2 enemyPosition)
     {
         bool shouldSpawnCoin = Random.Range(0, 101) <= cashDropChance;
-        DroppableCurrency dropppable = shouldSpawnCoin ? coinPool.Get() : cherriesPool.Get();
 
-        dropppable.transform.position = enemyPosition;
+        // 使用全局对象池获取实例
+        DroppableCurrency droppable = shouldSpawnCoin ?
+            ObjectPool.Instance.GetObject(coinPrefab.gameObject).GetComponent<Coin>() :
+            ObjectPool.Instance.GetObject(cherries.gameObject).GetComponent<Drops>();
+
+        droppable.transform.position = enemyPosition;
         TryDropChest(enemyPosition);
     }
     private void TryDropChest(Vector2 spawnPosition)
@@ -107,8 +71,7 @@ public class DropsManager : MonoBehaviour, IPlayerStatsDependency
     {
         Instantiate(chestPrefab, spawnPosition, Quaternion.identity, transform);
     }
-    private void ReleaseCoin(Coin coin) => coinPool.Release(coin);
-    private void Releasecherries(Drops cherries) => cherriesPool.Release(cherries);
+
 
     public void UpdateStats(PlayerStatsManager playerStatsManager)
     {

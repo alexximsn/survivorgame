@@ -7,8 +7,6 @@ using System;
 [RequireComponent(typeof(EnemyMovement),typeof(RangeEnemyAttack))]
 public class RangeEnemy : Enemy
 {
-
-   
     private RangeEnemyAttack attack;
     protected override void Start()
     {
@@ -16,8 +14,6 @@ public class RangeEnemy : Enemy
         attack = GetComponent<RangeEnemyAttack>();
         attack.StorePlayer(player);
     }
-
-   
      void Update()
     {
         if (!CanAttack())

@@ -36,17 +36,6 @@ public class InventoryManager : MonoBehaviour,IGameStateListener
         Configure();
         itemInfo.Configure(mergeWeapons);
     }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void GameStateChangedCallback(GameState gameState)
     {
         if (gameState == GameState.SHOP)
@@ -117,6 +106,5 @@ public class InventoryManager : MonoBehaviour,IGameStateListener
         shopManagerUI.HideItemInfo();
     }
     private void ItemPurchasedCallback() => Configure();
-
 
 }
