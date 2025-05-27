@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 using UnityEngine.UIElements;
 public class RangeEnemyAttack : MonoBehaviour
 {
-    [SerializeField] private Transform shootingPoint;
+    [SerializeField] public Transform shootingPoint;
     [SerializeField] private TreeEnemyBullet bulletPrefab;
     private Player player;
 
@@ -14,7 +14,7 @@ public class RangeEnemyAttack : MonoBehaviour
     private float attackDelay;
     private float attackTimer;
 
-    //private ObjectPool<TreeEnemyBullet> bulletPool;
+    private ObjectPool<TreeEnemyBullet> bulletPool;
 
     [SerializeField] private Animator animator;
     [SerializeField] private EnemyMovement movement;
@@ -25,7 +25,7 @@ public class RangeEnemyAttack : MonoBehaviour
         attackDelay = 1f / attackFrequency;
         attackTimer = attackDelay;
 
-    
+        bulletPool = new ObjectPool<TreeEnemyBullet>(CreateFunction, ActionOnGet, ActionOnRelease, ActionOnDestroy);
     }
 
    
@@ -33,13 +33,41 @@ public class RangeEnemyAttack : MonoBehaviour
     {
         this.player = player;
     }
-    // Update is called once per frame
+    private TreeEnemyBullet CreateFunction()
+    {
+        TreeEnemyBullet bulletInstance = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
+        bulletInstance.Configure(this);
+
+        return bulletInstance;
+    }
+
+    private void ActionOnGet(TreeEnemyBullet bullet)
+    {
+        bullet.Reload();
+        bullet.transform.position = shootingPoint.position;
+        bullet.gameObject.SetActive(true);
+    }
+
+    private void ActionOnRelease(TreeEnemyBullet bullet)
+    {
+        bullet.gameObject.SetActive(false);
+    }
+
+    private void ActionOnDestroy(TreeEnemyBullet bullet)
+    {
+        Destroy(bullet.gameObject);
+    }
+
+    public void ReleaseBullet(TreeEnemyBullet bullet)
+    {
+        bulletPool.Release(bullet);
+    }
     void Update()
     {     
     }
     public void AutoAim()
     {
-        // ManageShooting();
+     
         if (!isAttacking)
         {
             attackRoutine = StartCoroutine(AttackSequence());
@@ -90,8 +118,7 @@ public class RangeEnemyAttack : MonoBehaviour
     }
     public void InstantShoot(Vector2 direction)
     {
-        GameObject bulletObj = ObjectPool.Instance.GetObject(bulletPrefab.gameObject);
-        TreeEnemyBullet bulletInstance = bulletObj.GetComponent<TreeEnemyBullet>();
+        TreeEnemyBullet bulletInstance = bulletPool.Get();
         bulletInstance.Shoot(damage, direction);
     }
  

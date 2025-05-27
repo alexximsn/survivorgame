@@ -19,8 +19,6 @@ public class CurrencyManager : MonoBehaviour,IWantToBeSaved
         else
             Destroy(gameObject);
 
-       
-       // AddPremiumCurrency(PlayerPrefs.GetInt(premiumCurrencyKey, 100),false);
 
         Drops.onCollected += DropsCollectedCallback;
         Coin.onCollected += CoinCollectedCallback;
@@ -59,7 +57,7 @@ public class CurrencyManager : MonoBehaviour,IWantToBeSaved
     {
         PremiumCurrency += amount;
         UpdateVisuals();
-        //PlayerPrefs.SetInt(premiumCurrencyKey, PremiumCurrency);
+      
     }
     private void UpdateVisuals()
     {
@@ -108,7 +106,7 @@ public class CurrencyManager : MonoBehaviour,IWantToBeSaved
         if (SaverManager.TryLoad(this, premiumCurrencyKey, out object premiumCurrencyValue))
             AddPremiumCurrency((int)premiumCurrencyValue,false);
         else
-            AddPremiumCurrency(100,false);
+            AddPremiumCurrency(500,false);
     }
 
     public void Save()

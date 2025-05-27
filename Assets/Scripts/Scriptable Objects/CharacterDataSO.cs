@@ -8,7 +8,7 @@ public class CharacterDataSO : ScriptableObject
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
     [field: SerializeField] public int PurchasePrice { get; private set; }
-    [field: SerializeField]public AnimatorOverrideController AnimOverrideController { get; private set; } // 新增动画控制器字段
+    [field: SerializeField]public AnimatorOverrideController AnimOverrideController { get; private set; } //每个角色不同动画
     [HorizontalLine]
     [SerializeField] private float attack;
     [SerializeField] private float attackSpeed;
@@ -16,30 +16,25 @@ public class CharacterDataSO : ScriptableObject
     [SerializeField] private float critialPercent;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float maxHealth;
-   
     [SerializeField] private float healthRecoverySpeed;
-
     [SerializeField] private float luck;
     [SerializeField] private float dodge;
  
-   
-    public Dictionary<Stat, float> BaseStats
+    public Dictionary<Stat, float> BaseStats//字典
     {
         get
         {
             return new Dictionary<Stat, float>
             {
-                { Stat.Attack, attack },
-                {Stat.AttackSpeed,attackSpeed},
-                 {Stat.CritialChange,critialChance},
-                  {Stat.CritialPercent,critialPercent},
-                   {Stat.Movespeed,moveSpeed},
-                    {Stat.MaxHealth,maxHealth},
-                   
-                      {Stat.HealthRecoverySpeed,healthRecoverySpeed},
-                 
-                        {Stat.Lucky,luck},
-                        {Stat.Dodge, dodge},
+                { Stat.攻击, attack },
+                {Stat.攻击速度,attackSpeed},
+                 {Stat.暴击率,critialChance},
+                  {Stat.暴击伤害,critialPercent},
+                   {Stat.移动速度,moveSpeed},
+                    {Stat.生命值,maxHealth},   
+                      {Stat.恢复速度,healthRecoverySpeed},
+                        {Stat.幸运,luck},
+                        {Stat.闪避, dodge},
                       
                    
             };
@@ -60,5 +55,5 @@ public class CharacterDataSO : ScriptableObject
         }
 
         private set { }
-    }
+    }//包含非0的属性时使用
 }

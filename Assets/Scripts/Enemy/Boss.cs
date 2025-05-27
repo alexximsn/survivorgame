@@ -99,7 +99,7 @@ public class Boss : Enemy
     {
         movement.FollowPlayer();
 
-        // 根据距离或其他条件触发攻击（示例逻辑）
+        // 根据距离或其他条件触发攻击
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
         if (distanceToPlayer <= playerDetectionRadius)
         {

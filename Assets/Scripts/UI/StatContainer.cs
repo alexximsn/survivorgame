@@ -32,7 +32,7 @@ public class StatContainer : MonoBehaviour
         float absStatValue = Mathf.Abs(statValue);
         Color statValueTextColor = Color.white;
         if (sign > 0)
-            statValueTextColor = Color.green;
+            statValueTextColor = Color.black;
         else if (sign < 0)
             statValueTextColor = Color.red;
         statValueText.color = statValueTextColor;

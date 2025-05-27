@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 public class CharacterInfoPanel : MonoBehaviour
-{
+{//ÏêÏ¸Êý¾ÝµÄUI
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private GameObject priceContainer;

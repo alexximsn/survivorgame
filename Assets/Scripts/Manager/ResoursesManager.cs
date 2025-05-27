@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//负责加载数据
 public static class ResoursesManager 
 {
     const string statIconDataPath = "Data/Stat Icons";
@@ -27,12 +27,12 @@ public static class ResoursesManager
     {
         get {
             if(objectDatas==null)
-                
+                //如果未空，加载所有数据并缓存
             objectDatas=Resources.LoadAll<ObjectDataSO>(objectDatasPath);
             return objectDatas; }
         private set { }
     }
-    public static ObjectDataSO GetRandomObject()
+    public static ObjectDataSO GetRandomObject()//返回一个随机道具
     {
         return Objects[Random.Range(0, Objects.Length)];
     }

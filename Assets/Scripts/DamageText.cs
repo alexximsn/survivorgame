@@ -9,7 +9,7 @@ public class DamageText : MonoBehaviour
     public void Animate(string damage, bool isCriticalHit)
     {
         damageText.text=damage.ToString();
-        damageText.color = isCriticalHit ? new Color(1, 0, 0, 1) : new Color(0, 0, 0, 1);//不暴击黑，暴击红
+        damageText.color = isCriticalHit ? new Color(1, 0, 0, 1) : new Color(255, 255, 255, 1);//不暴击白，暴击红
         animator.Play("Animation");
       
     }

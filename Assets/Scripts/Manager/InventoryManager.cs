@@ -6,15 +6,15 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour,IGameStateListener
 {
-    [SerializeField] private PlayerWeapons playerWeapons;
+    [SerializeField] private PlayerWeapons playerWeapons;//武器
     [SerializeField] private PlayerObject playerObjects;
 
 
     [SerializeField] private Transform inventoryItemsParent;
     [SerializeField] private Transform pauseInventoryItemParent;
     [SerializeField] private InventoryItemContainer inventoryItemContainer;
-    [SerializeField] private ShopManagerUI shopManagerUI;
-    [SerializeField] private InventoryItemInfo itemInfo;
+    [SerializeField] private ShopManagerUI shopManagerUI;//商店的单例
+    [SerializeField] private InventoryItemInfo itemInfo;//开关
 
     private void Awake()
     {
@@ -43,10 +43,11 @@ public class InventoryManager : MonoBehaviour,IGameStateListener
     }
     private void Configure()
     {
+        //每次打开先清空上一次的结果
         inventoryItemsParent.Clear();
         pauseInventoryItemParent.Clear();
         weapons[] weapons = playerWeapons.GetWeapons();
-
+        //生成武器
         for (int i = 0; i < weapons.Length; i++)
         {
             if (weapons[i] == null)
@@ -58,7 +59,7 @@ public class InventoryManager : MonoBehaviour,IGameStateListener
             InventoryItemContainer pauseContainer = Instantiate(inventoryItemContainer, pauseInventoryItemParent);
             pauseContainer.Configure(weapons[i], i, null);
         }
-
+        //生成道具
         ObjectDataSO[] objectDatas = playerObjects.Objects.ToArray();
         for(int i=0;i<objectDatas.Length;i++)
         {

@@ -21,8 +21,8 @@ public class ShopManager : MonoBehaviour,IGameStateListener
     public static Action onItemPurchased;
     private void Awake()
     {
-        ShopItemContainer.onPurchased += ItemPurchasedCallback;
-        CurrencyManager.onUpdated += CurrencyUpdatedCallback;
+        ShopItemContainer.onPurchased += ItemPurchasedCallback;//买物品
+        CurrencyManager.onUpdated += CurrencyUpdatedCallback;//钱
     }
     private void OnDestroy()
     {
@@ -39,6 +39,7 @@ public class ShopManager : MonoBehaviour,IGameStateListener
     }
     private void Configure()
     {
+        //清理旧商品
         List<GameObject> toDestroy = new List<GameObject>();
         for(int i=0;i<containersParent.childCount;i++)
         {
@@ -53,7 +54,7 @@ public class ShopManager : MonoBehaviour,IGameStateListener
             Destroy(t.gameObject);
             toDestroy.RemoveAt(0);
         }
-
+        //计算需要添加的商品容器数量（最多 6 个）。
         int containersToAdd = 6-containersParent.childCount;
         int weaponContainerCount = Random.Range(Mathf.Min(2, containersToAdd), containersToAdd);
         int objectContainerCount = containersToAdd - weaponContainerCount;

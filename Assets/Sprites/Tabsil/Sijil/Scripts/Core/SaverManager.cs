@@ -42,7 +42,6 @@ namespace Tabsil.SaverManager
         private void LocalSave()
         {
             StreamWriter writer = new StreamWriter(dataPath);
-
             JSON gameDataJSon = JSON.Serialize(GameData);
             string dataString = gameDataJSon.CreatePrettyString();
 

@@ -51,10 +51,10 @@ public abstract class weapons : MonoBehaviour,IPlayerStatsDependency
     protected void ConfigureStats()
     {
         Dictionary<Stat, float> calculatedStats = WeaponStatsCalculator.GetStats(WeaponData, Level);
-        damage = Mathf.RoundToInt(calculatedStats[Stat.Attack]);
-        attackDelay = 1f / calculatedStats[Stat.AttackSpeed];
-        critialChance = Mathf.RoundToInt(calculatedStats[Stat.CritialChange] );
-        critialPercent = calculatedStats[Stat.CritialPercent] ;
+        damage = Mathf.RoundToInt(calculatedStats[Stat.攻击]);
+        attackDelay = 1f / calculatedStats[Stat.攻击速度];
+        critialChance = Mathf.RoundToInt(calculatedStats[Stat.暴击率] );
+        critialPercent = calculatedStats[Stat.暴击伤害] ;
     }
 
     internal void Update()

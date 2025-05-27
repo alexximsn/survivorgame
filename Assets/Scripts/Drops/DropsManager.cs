@@ -11,7 +11,7 @@ public class DropsManager : MonoBehaviour, IPlayerStatsDependency
     [SerializeField] private Chest chestPrefab;
     
     private float luckValue;
-    [SerializeField] [Range(0,100)] private int cashDropChance;
+    [SerializeField] [Range(0,100)] private int coinDropChance;
     [SerializeField] [Range(0, 100)] private int chestDropChance;
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class DropsManager : MonoBehaviour, IPlayerStatsDependency
     }
     private void EnemyPassedAwayCallback(Vector2 enemyPosition)
     {
-        bool shouldSpawnCoin = Random.Range(0, 101) <= cashDropChance;
+        bool shouldSpawnCoin = Random.Range(0, 101) <= coinDropChance;
 
         // 使用全局对象池获取实例
         DroppableCurrency droppable = shouldSpawnCoin ?
@@ -75,6 +75,6 @@ public class DropsManager : MonoBehaviour, IPlayerStatsDependency
 
     public void UpdateStats(PlayerStatsManager playerStatsManager)
     {
-        luckValue = playerStatsManager.GetStatValue(Stat.Lucky);
+        luckValue = playerStatsManager.GetStatValue(Stat.幸运);
     }
 }

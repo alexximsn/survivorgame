@@ -92,14 +92,14 @@ public class PlayerHealth : MonoBehaviour,IPlayerStatsDependency
     }
     public void UpdateStats(PlayerStatsManager playerStatsManager)
     {
-       float addedHealth= playerStatsManager.GetStatValue(Stat.MaxHealth);
+       float addedHealth= playerStatsManager.GetStatValue(Stat.生命值);
         maxHealth = baseMaxHealth + (int)addedHealth;
         maxHealth = Mathf.Max(maxHealth,1);
 
         health = maxHealth;
         UpdateUI();
-        dodge = playerStatsManager.GetStatValue(Stat.Dodge);//闪避
-        healthRecoverySpeed = Mathf.Max(.0001f, playerStatsManager.GetStatValue(Stat.HealthRecoverySpeed));
+        dodge = playerStatsManager.GetStatValue(Stat.闪避);//闪避
+        healthRecoverySpeed = Mathf.Max(.0001f, playerStatsManager.GetStatValue(Stat.恢复速度));
         healthRecoverDuration = 1f / healthRecoverySpeed;
     }
 }

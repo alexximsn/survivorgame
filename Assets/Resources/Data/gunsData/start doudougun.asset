@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6472b3457bafe45bc520976e40f73b, type: 3}
   m_Name: start doudougun
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: doudou
+  <Name>k__BackingField: "\u8C46\u8C46\u67AA"
   <Sprite>k__BackingField: {fileID: 4371079567834484094, guid: 45af50753e4a1ea40946a9eceeb76e6c,
     type: 3}
   <PurchasePrice>k__BackingField: 30
@@ -21,7 +21,7 @@ MonoBehaviour:
   <RecyclePrice>k__BackingField: 10
   <AttackSound>k__BackingField: {fileID: 8300000, guid: 12855e551caf81a448d122d8fae8c767,
     type: 3}
-  attack: 5
+  attack: 3
   attackSpeed: 2
-  critialChance: 5
-  critialPercent: 10
+  critialChance: 10
+  critialPercent: 5

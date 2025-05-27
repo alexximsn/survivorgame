@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6472b3457bafe45bc520976e40f73b, type: 3}
   m_Name: LaserData
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Laser
+  <Name>k__BackingField: "\u6FC0\u5149"
   <Sprite>k__BackingField: {fileID: 6398881092346017774, guid: e1a1926a29edda845a01f75685f42bec,
     type: 3}
-  <PurchasePrice>k__BackingField: 400
+  <PurchasePrice>k__BackingField: 100
   <Prefab>k__BackingField: {fileID: 3922438814936665003, guid: 9956a6bd05e3fd54da84171ea00a98b8,
     type: 3}
-  <RecyclePrice>k__BackingField: 200
-  <AttackSound>k__BackingField: {fileID: 8300000, guid: 8cc8b62211f9fa149b63f3032ed815b0,
+  <RecyclePrice>k__BackingField: 75
+  <AttackSound>k__BackingField: {fileID: 8300000, guid: 1886409f09102d445b187012d49207db,
     type: 3}
   attack: 10
   attackSpeed: 1
-  critialChance: 1
-  critialPercent: 5
+  critialChance: 0
+  critialPercent: 0

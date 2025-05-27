@@ -70,8 +70,8 @@ public class Rocketdan : Gunweapon
         currentRocketNum = baseRocketNum ;
         currentSpreadAngle = baseSpreadAngle;
 
-        damage = Mathf.RoundToInt(damage * (1 + stats.GetStatValue(Stat.Attack) / 100f));
-        attackDelay /= 1 + stats.GetStatValue(Stat.AttackSpeed) / 100f;
+        damage = Mathf.RoundToInt(damage * (1 + stats.GetStatValue(Stat.¹¥»÷) / 100f));
+        attackDelay /= 1 + stats.GetStatValue(Stat.¹¥»÷ËÙ¶È) / 100f;
     }
 
 }

@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
     }
     public void Configure(weapons weapon)
     {
-        parentWeapon = weapon;
+        parentWeapon = weapon;//≈‰÷√∏∏Œ‰∆˜
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {

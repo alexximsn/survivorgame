@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2b5a3e61e14244490357e23674c852, type: 3}
   m_Name: Pinkman
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Pinkman
+  <Name>k__BackingField: "\u7C89\u7C89\u7537\u7235"
   <Sprite>k__BackingField: {fileID: -6367560908665664636, guid: d348dff3819df794186a80cb95777629,
     type: 3}
-  <PurchasePrice>k__BackingField: 0
+  <PurchasePrice>k__BackingField: 200
   <AnimOverrideController>k__BackingField: {fileID: 22100000, guid: b053b038b5577644f81ae20f8de97608,
     type: 2}
-  attack: 2
+  attack: 1
   attackSpeed: 1
   critialChance: 30
-  critialPercent: 1
-  moveSpeed: 5
+  critialPercent: 120
+  moveSpeed: 60
   maxHealth: 10
-  healthRecoverySpeed: 5
-  luck: 50
+  healthRecoverySpeed: 3
+  luck: 20
   dodge: 20

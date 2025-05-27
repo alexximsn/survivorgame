@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6472b3457bafe45bc520976e40f73b, type: 3}
   m_Name: Rocketgun
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Rocket
+  <Name>k__BackingField: "\u706B\u7BAD\u5F39"
   <Sprite>k__BackingField: {fileID: 8924045752009221412, guid: e1a1926a29edda845a01f75685f42bec,
     type: 3}
-  <PurchasePrice>k__BackingField: 150
+  <PurchasePrice>k__BackingField: 75
   <Prefab>k__BackingField: {fileID: 2236347218920972335, guid: 79c1b4e4134333349ba4f78eeed3a22e,
     type: 3}
   <RecyclePrice>k__BackingField: 50
-  <AttackSound>k__BackingField: {fileID: 0}
-  attack: 10
+  <AttackSound>k__BackingField: {fileID: 8300000, guid: 4d6d816408e48e7428e863203522508f,
+    type: 3}
+  attack: 20
   attackSpeed: 2
-  critialChance: 1
-  critialPercent: 10
+  critialChance: 0
+  critialPercent: 0

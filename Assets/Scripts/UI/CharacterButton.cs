@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class CharacterButton : MonoBehaviour
-{
+{//解锁按钮的隐藏/出现
     [SerializeField] private Image characterImage;
     [SerializeField] private GameObject lockObject;
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6472b3457bafe45bc520976e40f73b, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: shot gun
+  <Name>k__BackingField: "\u6563\u5F39\u67AA"
   <Sprite>k__BackingField: {fileID: -2413220436549406992, guid: 45af50753e4a1ea40946a9eceeb76e6c,
     type: 3}
   <PurchasePrice>k__BackingField: 50
@@ -21,7 +21,7 @@ MonoBehaviour:
   <RecyclePrice>k__BackingField: 30
   <AttackSound>k__BackingField: {fileID: 8300000, guid: d8281a3c5f4a3ea4ea04421245b33ae6,
     type: 3}
-  attack: 20
+  attack: 5
   attackSpeed: 1
-  critialChance: 1
-  critialPercent: 30
+  critialChance: 10
+  critialPercent: 5

@@ -11,19 +11,20 @@ public enum GameState
 }
 public enum Stat
 {
-    Attack,
-    AttackSpeed,
-    CritialChange,
-    CritialPercent,
-    Movespeed,
-    MaxHealth,
-    HealthRecoverySpeed,
-    Lucky,
-    Dodge,
+    攻击,
+    攻击速度,
+    暴击率,
+    暴击伤害,
+    移动速度,
+    生命值,
+    恢复速度,
+    幸运,
+    闪避,
       
 }
 public static class Enums
 {
+    //" AttackSpeed"转为" Attack Speed"
     public static string FormatStatName(Stat stat)
     {
         string formated = "";

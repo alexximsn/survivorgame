@@ -10,11 +10,8 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
 {
     public static WaveTrasitionManager instance;
     [SerializeField] private PlayerObject playerObjects;
-   
     [SerializeField] private PlayerStatsManager playerStatsManager;
-
     private int chestsCollected;
-
     [SerializeField] private ChestObjectContainer chestContainerPrefab;
     [SerializeField] private Transform chestContainerParent;
 
@@ -46,9 +43,7 @@ public class WaveTrasitionManager : MonoBehaviour,IGameStateListener
         if (chestsCollected > 0)
             ShowObject();
         else
-       
             GameManager.instance.WaveCompletedCallback(); // 直接跳转到下一阶段
-
     }
     private void ShowObject()
     {
